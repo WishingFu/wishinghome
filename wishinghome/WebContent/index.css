@@ -1,0 +1,67 @@
+body {
+	margin: 0px; padding: 0px;
+	font-family: 隶书;
+/* 	background-color: #9ababa; */
+}
+
+section h2 {
+	line-height: 3em;
+	margin: 0px;
+	padding: 1em 0 0 3em;
+}
+
+section {
+	background-color: white;
+	border-bottom: 2px solod dark;
+	box-shadow: 0px 4px 5px #aaa;
+}
+
+#left {
+	float: left;
+	border: 1px solid #aaa;
+	text-align: center;
+	margin: 2em 2em 1em 2em;
+	box-shadow: 2px 4px 5px #aaa;
+	width: 25%;
+}
+
+#left ul {
+	padding: 0px;
+}
+
+#left li{
+	position: relative;
+	list-style-type: none;
+	padding-bottom: 1em;
+}
+
+#left li ul {
+	position: absolute;
+	left: 100%;
+	top: 0px;
+	display: none;
+	
+}
+
+#left li li {
+	float: none;
+	border: 1px solid black;
+}
+
+#left li a {
+	text-decoration: none;
+	display: block;
+	padding: 3px 40px;
+}
+
+#left li a:hover {
+	background-color: #9ababa;
+	color: white;
+}
+#left li a:active {
+	background-color: #9ababa;
+	color: black;
+}
+#left li:hover > ul {
+	display: block;
+}
