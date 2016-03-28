@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root table_name="field_comment" table_code="field_comment" description="评论">
+	<fields>
+		<field code="comment_help" description="评论的帮助信息" display="帮助 " type="长文本输入框" show="true" send="true" format="" panel="" tpl="" nullable="true"/>
+		<field code="comment_isrequired" description="评论是否必须" display="必填字段" type="单选框" show="true" send="true" format="" panel="" tpl="" nullable="false"/>
+		<field code="comment_value" description="评论地址" display="邮件地址" type="短文本输入框" show="true" send="true" format="" panel="" tpl="" nullable="false"/>
+	</fields>
+</root>
