@@ -1,0 +1,13 @@
+canvas {
+	border: 2px solid red;
+}
+
+input[type=text] {
+	width: 70px;
+	border-radius: 10px;
+	-webkit-transition: width 2s;
+}
+
+input[type=text]:focus {
+	width: 200px;
+}

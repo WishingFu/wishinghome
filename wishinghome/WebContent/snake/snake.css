@@ -1,0 +1,9 @@
+canvas {
+	border: 2px solid red;
+}
+
+#settings {
+	position: fixed;
+	left: 1000px;
+	top: 100px;
+}

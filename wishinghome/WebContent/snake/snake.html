@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>Snake</title>
+</head>
+<link rel="stylesheet" type="text/css" href="snake.css">
+<body>
+	<canvas id="snake">
+		请换一个浏览器;
+	</canvas>
+	<section id="settings">
+		<div>
+			<label>当前难度：</label><input id="difficulty" type="number"  readonly /><br/><br/>
+			<label>食物数量：</label><input id="eatedFoods" type="number"  readonly /><br/><br/>
+			<label>当前分数：</label><input id="scores" type="number"  readonly /><br/><br/>
+			<button id="reInit" type="button" onclick="reInit();">重新开始</button>
+			<button id="autoSnake" type="button" onclick="autoMode();">自动模式</button>
+		</div>
+	</section>
+	<script type="text/javascript" src="snake.js"></script>
+</body>
+</html>
