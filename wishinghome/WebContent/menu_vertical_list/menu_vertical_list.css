@@ -27,39 +27,23 @@ article {
 	box-shadow: 2px 4px 5px #aaa;
 	width: 15%;
 }
-.content {
-	float: left;
-	border: 1px solid #aaa;
-	margin: 2em 2em 2em 3em;
-	box-shadow: 2px 4px 5px #aaa;
-	width: 25%;
-}
-#right {
+#center {
 	float: left;
 	border: 1px solid #aaa;
 	margin: 2em 2em 1em 2em;
 	box-shadow: 2px 4px 5px #aaa;
-	width: 50px;
-	height: 50px;
-	transition: all 2s ease-in-out; 
+	width: 25%;
 }
-
-#center:hover + #right{
-	transform: matrix(2, 5, -5, 2, 200, 100);
-/* 	transform: rotate(2880deg); */
-}
-.menu-horizontal-list {
+.menu-vertical-list {
 	background-color: white;
 	padding: 0px;
-	overflow: hidden;
+	
 }
-.menu-horizontal-list li {
-	float: left;
+.menu-vertical-list li {
 	position: relative;
-	padding: 0em 1em;
 	list-style-type: none;
 }
-.menu-horizontal-list li ul {
+.menu-vertical-list li ul {
 	position: absolute;
 	width: 99%;
 	left: 100%;
@@ -68,29 +52,29 @@ article {
 	border: 1px solid #aaa;
 	transition: all 1s ease-in-out;
 }
-.menu-horizontal-list li li {
+.menu-vertical-list li li {
 	float: none;
 	width: 100%;
 }
-.menu-horizontal-list li li a {
+.menu-vertical-list li li a {
 	width: 100%;
 }
-.menu-horizontal-list li a {
+.menu-vertical-list li a {
 	text-decoration: none;
 	display: block;
 	padding: 0.3em 0px;
 }
-.menu-horizontal-list li a:hover {
+.menu-vertical-list li a:hover {
 	background-color: #9ababa;
 	color: white;
 }
-.menu-horizontal-list li a:active {
+.menu-vertical-list li a:active {
 	background-color: #9ababa;
 	color: black;
 }
-.menu-horizontal-list li:hover {
+.menu-vertical-list li:hover {
 	background-color: #9ababa;
 }
-.menu-horizontal-list li:hover > ul {
+.menu-vertical-list li:hover > ul {
 	display: block;
 }
