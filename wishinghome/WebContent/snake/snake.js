@@ -9,6 +9,9 @@ var reInitButton = document.querySelector("#reInit");
 var c = canvas.getContext("2d");
 c.strokeStyle = "green";
 c.lineWidth = 1;
+c.shadowOffsetX = 5;
+c.shadowOffsetY = 5;
+c.shadowBlur = 2;
 
 //游戏设置
 var rows = 50;
