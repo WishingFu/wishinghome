@@ -21,6 +21,7 @@ article {
 }
 .page {
 	display: none;	
+	transition: all 2s ease-out;
 }
 .active {
 	display: block;
@@ -33,6 +34,12 @@ article {
 	box-shadow: 2px 4px 5px #aaa;
 	width: 15%;
 	background-color: white;
+}
+#canvas {
+/* 	float: left; */
+	margin: 2em 2em 1em 2em;
+	border: 1px solid #aaa;
+	box-shadow: 2px 4px 5px #aaa;
 }
 .content {
 	float: left;
@@ -52,24 +59,19 @@ article {
 	width: 360px;
 	height: 640px;
 	background-size: contain;
-/* 	transition: all 0.5s ease-out;  */
 	transition: all 0.8s ease-out;
 	animation: pictures 6s infinite;	
 }
 
 @keyframes pictures {
-	0% { background: url("images/11.jpg") 0px 0px no-repeat,
-					 url("images/22.jpg") 360px 0px no-repeat, 
-					 url("images/33.jpg") 360px 0px no-repeat; }
-	33% { background: url("images/11.jpg") -360px 0px no-repeat, 
-				 	  url("images/22.jpg") 0px 0px no-repeat, 
-				 	  url("images/33.jpg") 360px 0px no-repeat; }
-	67% { background: url("images/33.jpg") 0px 0px no-repeat, 
-					   url("images/22.jpg") -360px 0px no-repeat, 
-					   url("images/11.jpg") 0px 0px no-repeat; }
-	100% { background: url("images/33.jpg") 360px 0px no-repeat,
-					   url("images/22.jpg") -360px 0px no-repeat,
-					   url("images/11.jpg") 0px 0px no-repeat; }
+	0% {
+    background: url("../images/11.jpg") 0px 0px no-repeat, url("../images/22.jpg") 360px 0px no-repeat, url("../images/33.jpg") 360px 0px no-repeat; }
+  33% {
+    background: url("../images/11.jpg") -360px 0px no-repeat, url("../images/22.jpg") 0px 0px no-repeat, url("../images/33.jpg") 360px 0px no-repeat; }
+  67% {
+    background: url("../images/33.jpg") 0px 0px no-repeat, url("../images/22.jpg") -360px 0px no-repeat, url("../images/11.jpg") 0px 0px no-repeat; }
+  100% {
+    background: url("../images/33.jpg") 360px 0px no-repeat, url("../images/22.jpg") -360px 0px no-repeat, url("../images/11.jpg") 0px 0px no-repeat; } }
 }
 .content:hover + #right{
 	transform: ;
