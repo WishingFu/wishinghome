@@ -1,24 +1,36 @@
-var url = require("url");
-
-/*
-	pathname ==> "/mod/params";
-*/
-function route(request, response) {
-	var pathname = url.parse(request.url).pathname;
-	if(pathname.indexof("/") !== -1) {
-		var paths = pathname.split("/");
-		var lastPath = paths[paths.length - 1];
-		if(lastPath.indexof(".") !== -1) {
-			var requestType = lastPath.split(".")[1];
-			if(typeof requestType === "undefined" || requestType === "") {
-				//TODO
-			} else if(requestType === ""){
-
-			}
+var path = require("path");
+var fs = require("fs");
+var contentType = require("./mimes").mime;
+/*	pathname ==> "/mod/params" */
+function route(pathname, request, response) {
+	try {
+		var extname = path.extname(pathname);
+		if(pathname === "/") {
+			this.route("./index.html", request, response);
+		} else if(extname !== "" && extname !== ".") {		
+			fs.readFile("./" + pathname, function(err, data){
+				if(err) {
+					response.writeHead(404, {'Content-Type': 'text/plain'});
+   					response.write("This request URL " + pathname + " was not found on this server.");
+					response.end();
+					return false;
+				}
+				response.setHeader("Content-Type", contentType[extname]);
+				response.write(data);
+				response.end();
+			})
+		} else if(extname === "."){
+			pathname = pathname.substring(0, pathname.length - 1);
+			this.route(pathname, request, response);
 		} else {
-			var mod = require("./" + params[1]);
+			var requireType = path.basename(pathname);
+			var mod = require("./" + requireType);
 			mod.execute(request, response);
 		}
+	} catch(e) {
+		response.writeHead(500, {'Content-Type': 'text/plain'});
+        response.write("There is something wrong happened..");
+        response.end();
 	}
 }
 

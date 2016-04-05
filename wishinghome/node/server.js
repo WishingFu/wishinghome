@@ -1,11 +1,9 @@
 var http = require("http");
-
+var url = require("url");
 function start(port, router) {
 	http.createServer(function(request, response) {
-		response.writeHead(200, {"content-type" : "text/html"});
-		router.route(request, response);
-		response.write("Hello world");
-		response.end();
+		var pathname = url.parse(request.url).pathname;
+		router.route(pathname, request, response);
 	}).listen(port);
 }
 
