@@ -1,6 +1,5 @@
-
 configs = {
-	
+
 }
 
 exports.config = config;

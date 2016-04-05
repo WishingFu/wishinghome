@@ -7,11 +7,11 @@ function route(pathname, request, response) {
 		var extname = path.extname(pathname);
 		if(pathname === "/") {
 			this.route("./index.html", request, response);
-		} else if(extname !== "" && extname !== ".") {		
+		} else if(extname !== "" && extname !== ".") {
 			fs.readFile("./" + pathname, function(err, data){
 				if(err) {
 					response.writeHead(404, {'Content-Type': 'text/plain'});
-   					response.write("This request URL " + pathname + " was not found on this server.");
+					response.write("This request URL " + pathname + " was not found on this server.");
 					response.end();
 					return false;
 				}
@@ -24,10 +24,11 @@ function route(pathname, request, response) {
 			this.route(pathname, request, response);
 		} else {
 			var requireType = path.basename(pathname);
-			var mod = require("./" + requireType);
-			mod.execute(request, response);
+			var mod = require("./" + pathname.split("/")[1]);
+			mod.execute(pathname, request, response);
 		}
 	} catch(e) {
+		console.log(e);
 		response.writeHead(500, {'Content-Type': 'text/plain'});
         response.write("There is something wrong happened..");
         response.end();

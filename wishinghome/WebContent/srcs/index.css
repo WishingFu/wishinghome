@@ -50,7 +50,7 @@ article {
 	margin: 2em 2em 2em 3em;
 	box-shadow: 2px 4px 5px #aaa;
 	width: 25%;
-	transition: all 0.8s ease-out;
+	transition: all 0.8s ease-in-out;
 }
 #right {
 	float: left;
