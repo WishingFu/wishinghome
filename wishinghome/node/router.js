@@ -8,6 +8,7 @@ function route(pathname, request, response) {
 		if(pathname === "/") {
 			this.route("./index.html", request, response);
 		} else if(extname !== "" && extname !== ".") {
+			// extname = extname.indexOf("?") === -1 ? extname : extname.substring(0, extname.indexOf("?"));
 			fs.readFile("./" + pathname, function(err, data){
 				if(err) {
 					response.writeHead(404, {'Content-Type': 'text/plain'});
