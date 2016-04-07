@@ -1,0 +1,48 @@
+body, div, ul, p, h1, h2, h3 {
+	padding: 0;
+	margin: 0;
+}
+
+#top {
+	height: 3rem;
+	line-height: 3rem;
+	color: white;
+	width: 100%;
+	background-color: rgba(7, 39, 99, 0.7);
+	box-shadow: 0px 4px 5px #afafaf;
+}
+#top h3 {
+	padding-left: 3rem;
+}
+
+#left {
+	float: left;
+	text-align: center;
+	width: 20%;
+	border-right: 1px solid #aaa;
+	padding: 0;
+	box-shadow: 4px 2px 5px #afafaf;
+}
+
+ul {
+	list-style-type: none;
+}
+ul li {
+	width: 100%;
+}
+
+ul a {
+	width: 100%;
+	display: block;
+	padding: 0.5rem 0;
+	text-decoration: none;
+}
+
+ul a:hover {
+	background-color: #62C44E;
+	color: white;
+}
+
+#content {
+
+}
