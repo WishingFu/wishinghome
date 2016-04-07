@@ -1,0 +1,51 @@
+.menu_block {
+	color: black;
+	position: absolute;
+	right: 5%;
+	top: 0.2rem;
+	padding: 0 3%;
+	transition: all 0.5s ease-in-out;
+}
+.menu_block .menu_block_icon {
+	font-size: 2rem;
+	box-shadow: 2px 2px 2px #afafaf;
+	transition: all 0.3s ease-in-out;
+}
+
+.menu_block .menu_block_content {
+	position: absolute;
+	text-align: center;
+	right: 40%;
+	top: 70%;
+	width: 100px;
+	background-color: white;
+	border: 1px solid #afafaf;
+	box-shadow: 3px 4px 5px #afafaf;
+	display: none;
+	border-radius: 3px;
+	transition: all 0.3s ease-in-out;
+}
+.menu_block .menu_block_content a {
+	display: block;
+}
+.menu_block .menu_block_content a:hover {
+	background-color: #62C44E;
+}
+.menu_block:hover .menu_block_icon {
+	transform: rotate(90deg);
+}
+.menu_block:hover .menu_block_content {
+	display: block;
+	animation: menu_block 0.3s ease-out;
+}
+
+@keyframes menu_block {
+	0% {
+		width: 0px;
+		height: 0;
+	}
+	100% {
+		width: 100px;
+		height: auto;
+	}
+}

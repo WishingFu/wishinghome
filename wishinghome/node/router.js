@@ -13,7 +13,7 @@ function route(pathname, request, response) {
 			fs.readFile("./" + pathname, function(err, data){
 				if(err) {
 					response.writeHead(404, {'Content-Type': 'text/plain'});
-					response.write("This request URL " + pathname + " was not found on this server.");
+					response.write("<h3>This request URL " + pathname + " was not found on this server.</h3>");
 					response.end();
 					return false;
 				}
@@ -32,7 +32,7 @@ function route(pathname, request, response) {
 	} catch(e) {
 		console.log(e);
 		response.writeHead(500, {'Content-Type': 'text/plain'});
-        response.write("There is something wrong happened..");
+        response.write("<h3>There is something wrong happened..</h3>");
         response.end();
 	}
 }

@@ -11,7 +11,6 @@ $(document).ready(function() {
 	for(var i = 0; i < pages.length; i++) {
 		if($(pages[i]).hasClass("active")) {
 			page_index = i;
-			break;
 		}
 	}
 	$(".page").each(function() {

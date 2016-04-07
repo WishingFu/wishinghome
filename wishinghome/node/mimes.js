@@ -7,7 +7,8 @@ mime = {
 	".ttf" 	: "application/x-font-ttf",
 	".woff" : "application/x-font-woff",
 	".woff2": "application/x-font-woff",
-	".svg" 	: "image/svg+xml"
+	".svg" 	: "image/svg+xml",
+	".ico"	: "image/x-icon"
 }
 
 exports.mime = mime;

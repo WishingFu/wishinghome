@@ -40,5 +40,17 @@
 	background-color: #9ababa;
 }
 .menu-vertical-list li:hover > ul {
+	animation: menu 0.3s ease-out;
 	display: block;
+}
+
+@keyframes menu {
+	0% {
+		left: 120%;
+		opacity: 0;
+	}
+	100% {
+		left: 100%;
+		opacity: 1;
+	}
 }
