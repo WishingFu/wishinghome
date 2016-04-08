@@ -19,7 +19,6 @@ $(document).ready(function() {
 			$(".modal").modal(false);
 		}, 500);
 	});
-
 	$("#left").vertical_tree_menu({
 		menus : [
 		{
@@ -54,6 +53,9 @@ $(document).ready(function() {
 				text : "2 - 2",
 				link : "#"
 			}]
+		} , {
+			text : 3,
+			link : "#",
 		}]
 	});
 });
@@ -68,7 +70,6 @@ $(document).ready(function() {
 		},
 	})
 })(jQuery);
-
 
 function openModalTest() {	
 	$(".modal-content").css("animation", "show-modal 0.5s ease-out");

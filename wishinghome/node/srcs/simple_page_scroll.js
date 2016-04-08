@@ -24,6 +24,7 @@ $(document).ready(function() {
 		} else if(e.originalEvent.deltaY < 0) {
 			scrollToPrevious();
 		}
+		console.log(e);
 	})
 	$("body").css("transition", "all 0.5s ease-out");
 	$(".modal").css("height", height);

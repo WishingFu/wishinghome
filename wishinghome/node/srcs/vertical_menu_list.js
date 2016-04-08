@@ -33,7 +33,6 @@
 			if(menus && typeof menus === "object" && menus.length > 0) {
 				h = getMenuHtml(menus);
 			}
-			console.log(h);
 			$(this).html(h);
 		},
 	})
