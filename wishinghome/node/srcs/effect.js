@@ -25,12 +25,24 @@ $(document).ready(function() {
 		{
 			text : 1,
 			link : "#",
+			func : "openModalTest();",
 			subs : [{
 				text : "1 - 1",
-				link : "#"
+				link : "#",
+				subs : [{
+					text : "1 - 1 - 1",
+					link : "#"
+				} , {
+					text : "1 - 1 - 2",
+					link : "#"
+				}]
 			} , {
 				text : "1 - 2",
-				link : "#"
+				link : "#",
+				subs : [{
+					text : "1 - 2 - 1",
+					link : "#"
+				}]
 			}]
 		} , {
 			text : 2,
