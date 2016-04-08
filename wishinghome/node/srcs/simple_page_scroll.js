@@ -26,7 +26,7 @@ $(document).ready(function() {
 		}
 		console.log(e);
 	})
-	$("body").css("transition", "all 0.5s ease-out");
+	$("body").css("transition", "all 0.7s ease-out");
 	$(".modal").css("height", height);
 	$(".page-modal").css("height", height);
 });
