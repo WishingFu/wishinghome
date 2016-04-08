@@ -117,18 +117,18 @@ h3 {
 	}
 }
 
-.page-modal {
+.modal {
 	position: absolute;
 	top: 0;
 	width: 100%;
 	left: 0;
 	z-index: 2;
 	display: none;
-	background-color: black;
-	opacity: .3;
+	background-color: rgba(0, 0, 0, 0.3);
 }
 
-.page-modal .modal-content {
+.modal-content {
+	position: relative;
 	left: 30%;
 	width: 40%;
 	height: 80%;
@@ -136,6 +136,31 @@ h3 {
 	z-index: 3;
 	background-color: white;
 	border: 8px solid #82F5B2;
+}
+.modal-header {
+	padding: 0;
+	height: 4rem;
+	line-height: 4rem;
+	border-bottom: 2px solid #82F5B2;
+}
+.modal-header-icons {
+	padding: 0 1rem;
+	font-size: 2rem;
+	display: inline-block;
+}
+.modal-header-icons span {
+	cursor: pointer;
+}
+.modal-header-title {
+	display: inline-block;
+}
+.modal-footer {
+	position: absolute;
+	bottom: 0;
+	height: 4rem;
+	width: 100%;
+	line-height: 4rem;
+	border-top: 2px solid #82F5B2;
 }
 
 @keyframes show-modal {
@@ -146,5 +171,15 @@ h3 {
 	100% {
 		top: 10%;
 		opacity: 1;
+	}
+}
+@keyframes close-modal {
+	0% {
+		top: 10%;
+		opacity: 1;
+	}
+	100% {
+		top: 0;
+		opacity: 0;
 	}
 }

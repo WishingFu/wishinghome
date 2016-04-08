@@ -4,6 +4,7 @@ var pages;
 var page_index;
 var basePercentage;
 var transB = new Date();
+
 $(document).ready(function() {
 	$("html").css("overflow", "hidden");
 	pages = $(".page");
@@ -25,6 +26,7 @@ $(document).ready(function() {
 		}
 	})
 	$("body").css("transition", "all 0.5s ease-out");
+	$(".modal").css("height", height);
 	$(".page-modal").css("height", height);
 });
 
@@ -34,7 +36,6 @@ function scrollToNext() {
 	}
 	scroll_flag = true;
 	if(page_index < pages.length - 1) {
-		console.log(page_index);
 		page_index++;
 		$("body").css("transform", "translateY(-" + basePercentage * (Number(page_index)) + "%)");
 		transB = new Date();	
