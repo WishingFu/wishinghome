@@ -5,10 +5,10 @@
 	<meta charset="UTF-8">
 	<link rel="stylesheet" type="text/css" href="srcs/bootstrap/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="srcs/effect.css">
-	<link rel="stylesheet" type="text/css" href="srcs/menu_vertical_list.css">	
+	<link rel="stylesheet" type="text/css" href="srcs/wishingfu.css">	
 </head>
 <body>
-	<div class="page active" style="background-color: orange">
+	<div class="page" style="background-color: orange">
 		<div id="top">
 			<header>
 				<h3>1</h3>
@@ -16,7 +16,7 @@
 					<span class="menu_block_icon glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<div class="menu_block_content">
 						<ul>
-							<li><a href="#" onclick="openModalTest();">1</a></li>
+							<li><a href="#" class="open-modal" data-modal="test" onclick="">1</a></li>
 							<li><a href="#">2</a></li>
 							<li><a href="#">3</a></li>
 							<li><a href="#">4</a></li>
@@ -33,8 +33,33 @@
 		</div>
 	</div>
 
-	<div class="page">
-		<h1>2</h1>
+	<div class="page active" style="background-color: #628DB6; color: white">
+		<table>
+			<thead>
+				<th>1</th>
+				<th>2</th>
+				<th>3</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td> 1 - 1 </td>
+					<td> 1 - 2</td>
+					<td> 1 - 3</td>
+				</tr>
+				<tr>
+					<td> 2 - 1</td>
+					<td> 2 - 2</td>
+					<td> 3 - 3</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+			</tfoot>
+		</table>
+
+		<button type="button">Wish</button>
 	</div>
 	<div class="page">
 		<h1>3</h1>
@@ -44,25 +69,27 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<div class="modal-header-icons">
-					<span class="glyphicon glyphicon-circle-arrow-left"></span>
+					<span class="glyphicon glyphicon-circle-arrow-left close-modal"></span>
 				</div>
 				<div class="modal-header-title">
-					<h3>Modal Titile</h3>
+					<h3>《暗香》<small>--姜夔</small></h3>
 				</div>
 			</div>
 			<div class="modal-content-content">
-				11
+				<article>
+					<header>
+					</header>
+					<p>&nbsp;&nbsp;旧时月色，算几分照我，梅边吹笛？唤起玉人，不管清寒与攀摘。何逊而今渐老，都忘却，春风词笔。但怪得，竹外疏花，香冷入瑶席。   </p>
+					<p>&nbsp;&nbsp;江国，正寂寂。叹寄与路遥，夜雪初积。翠尊易泣，红萼无言耿相忆。长记曾携手处，千树压，西湖寒碧。又片片吹尽也，几时见得？</p>
+				</article>
 			</div>
-			<div class="modal-footer">
-
+			<div class="modal-footer" style="text-align: right;">
+				<p>2016-4-11</p>
 			</div>
 		</div>
 	</div>
 	<script type="text/javascript" src="srcs/jquery-1.12.2.min.js"></script>
-	<!-- <script type="text/javascript" src="srcs/jquery.onepage-scroll.js"></script> -->
-	<script type="text/javascript" src="srcs/vertical_menu_list.js"></script>
-	<script type="text/javascript" src="srcs/simple_page_scroll.js"></script>
-	<!-- <script type="text/javascript" src="srcs/bootstrap/bootstrap.min.js"></script> -->
+	<script type="text/javascript" src="srcs/wishingfu.js"></script>
 	<script type="text/javascript" src="srcs/effect.js"></script>
 </body>
 </html>

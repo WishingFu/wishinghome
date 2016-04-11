@@ -1,25 +1,3 @@
-body, div, ul, p, h1, h2, h3, header {
-	padding: 0;
-	margin: 0;
-}
-body {
-	min-width: 768px;
-}
-ul {
-	list-style-type: none;
-}
-.page {
-	/*display: none;*/
-}
-.active {
-	display: block;
-}
-/*@media(min-width: 768px) {
-	.page {
-		width: 768px;
-	}
-}*/
-
 #top {
 	height: 4rem;
 	line-height: 4rem;
@@ -131,7 +109,7 @@ h3 {
 	position: relative;
 	left: 30%;
 	width: 40%;
-	height: 80%;
+	/*height: 80%;*/
 	top: 10%;
 	z-index: 3;
 	background-color: white;
@@ -155,12 +133,15 @@ h3 {
 	display: inline-block;
 }
 .modal-footer {
-	position: absolute;
+	position: relative;
 	bottom: 0;
-	height: 4rem;
+	/*height: 4rem;*/
 	width: 100%;
-	line-height: 4rem;
+	/*line-height: 4rem;*/
 	border-top: 2px solid #82F5B2;
+}
+.modal-footer p {
+	padding-right: 1rem;
 }
 
 @keyframes show-modal {

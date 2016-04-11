@@ -1,0 +1,173 @@
+body, div, ul, p, h1, h2, h3, header {
+	padding: 0;
+	margin: 0;
+	font-family: 隶书;
+}
+body {
+	min-width: 768px;
+}
+ul {
+	list-style-type: none;
+}
+article {
+	font-size: 18px;
+	padding: 0em 1em;
+}
+p {
+	margin: 1rem 0rem;
+}
+.page {
+	/*display: none;*/
+}
+.active {
+	display: block;
+}
+/*@media(min-width: 768px) {
+	.page {
+		width: 768px;
+	}
+}*/
+.modal {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	left: 0;
+	z-index: 2;
+	display: none;
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal-content {
+	position: relative;
+	left: 30%;
+	width: 40%;
+	/*height: 80%;*/
+	top: 10%;
+	z-index: 3;
+	background-color: white;
+	border: 8px solid #82F5B2;
+}
+.modal-header {
+	padding: 0;
+	height: 4rem;
+	line-height: 4rem;
+	border-bottom: 2px solid #82F5B2;
+}
+.modal-header-icons {
+	padding: 0 1rem;
+	font-size: 2rem;
+	display: inline-block;
+}
+.modal-header-icons span {
+	cursor: pointer;
+}
+.modal-header-title {
+	display: inline-block;
+}
+.modal-footer {
+	position: relative;
+	bottom: 0;
+	/*height: 4rem;*/
+	width: 100%;
+	/*line-height: 4rem;*/
+	border-top: 2px solid #82F5B2;
+}
+.modal-footer p {
+	padding-right: 1rem;
+}
+
+@keyframes show-modal {
+	0% {
+		top: 0;
+		opacity: 0;
+	}
+	100% {
+		top: 10%;
+		opacity: 1;
+	}
+}
+@keyframes close-modal {
+	0% {
+		top: 10%;
+		opacity: 1;
+	}
+	100% {
+		top: 0;
+		opacity: 0;
+	}
+}
+.menu-vertical-list {
+	background-color: white;
+	padding: 0px;
+	
+}
+.menu-vertical-list li {
+	position: relative;
+	list-style-type: none;
+}
+.menu-vertical-list li ul {
+	position: absolute;
+	width: 99%;
+	left: 100%;
+	top: 0.3em;
+	display: none;
+	border: 1px solid #aaa;
+	transition: all 1s ease-in-out;
+}
+.menu-vertical-list li li {
+	float: none;
+	width: 100%;
+}
+.menu-vertical-list li li a {
+	width: 100%;
+}
+.menu-vertical-list li a {
+	text-decoration: none;
+	display: block;
+	padding: 0.3em 0px;
+}
+.menu-vertical-list li a:hover {
+	background-color: #9ababa;
+	color: white;
+}
+.menu-vertical-list li a:active {
+	background-color: #9ababa;
+	color: black;
+}
+.menu-vertical-list li:hover {
+	background-color: #9ababa;
+}
+.menu-vertical-list li:hover > ul {
+	animation: menu 0.3s ease-out;
+	display: block;
+}
+
+@keyframes menu {
+	0% {
+		left: 120%;
+		opacity: 0;
+	}
+	100% {
+		left: 100%;
+		opacity: 1;
+	}
+}
+table th {
+	text-align: center;
+	padding: 0.5rem 0;
+}
+td {
+	padding: 0.5rem 1rem;
+	text-align: center;
+}
+tr {
+	border-bottom: 1px solid white;
+}
+
+button {
+	border-radius: 10%;
+	color: blue;
+	padding: 1rem 2rem;
+	background-color: #D9E9FD;
+	box-shadow: none;
+}
