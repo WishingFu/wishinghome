@@ -75,14 +75,66 @@
 			}
 		},
 		list : function(options) {
-			defaults = {
+			var defaults = {
 
 			}
-			$.extend({}, this.defaults, options);
+			$.extend({}, defaults, options);
 
+		},
+		clock : function(options) {
+			var defaults = {
+
+			}
+			var config = $.extend({}, defaults, options);
+			clock = $(this)[0];
+			c = clock.getContext("2d");
+			initC(c);
+			timeInterval = setInterval(function() {
+				c.clearRect(0, 0, 550, 500);
+				drawClockByTimeNow(c);
+			}, 100);
 		}
 	})
+	// Clock------------------------
+	function initC(c) {
+		c.strokeStyle = "rgba(152, 34, 155, 0.5)";
+		c.shadowColor = "black";
+		c.globalAlpha = 0.8;
+		c.lineWidth = 5;
+		c.shadowOffsetX = 5;
+		c.shadowOffsetY = 3;
+		c.shadowBlur = 3;
+	}
 
+	function drawClockByTimeNow(c) {
+		var now = new Date();
+		var h = now.getHours();
+		var m = now.getMinutes();
+		var s = now.getSeconds();
+		var M = now.getMilliseconds();
+		
+		s_angle = ( s + M / 1000 ) * 2 * Math.PI / 60;
+		m_angle = ( m + s / 60 ) * 2 * Math.PI / 60;
+		h_angle = ( h + m / 60 ) * 2 * Math.PI / 12;
+		
+		c.save();
+		c.beginPath();
+		c.translate(clock.width / 2, clock.height / 2);
+		c.rotate(- Math.PI / 2);
+		c.moveTo(0, 0);
+		c.arc(0, 0, 4, 0, 2 * Math.PI, false);
+		c.fill();
+		c.moveTo(0, 0);
+		c.lineTo(100 * Math.cos(s_angle), 100 * Math.sin(s_angle));
+		c.moveTo(0, 0);
+		c.lineTo(80 * Math.cos(m_angle), 80 * Math.sin(m_angle));
+		c.moveTo(0, 0);
+		c.lineTo(60 * Math.cos(h_angle), 60 * Math.sin(h_angle));
+		
+		c.closePath();
+		c.stroke();
+		c.restore();
+	}
 	function getMenuHtml(menus) {
 		if(!menus || !menus.length) {
 			return "";
@@ -110,7 +162,8 @@
 		h += "</ul>";
 		return h;
 	}
-	//scroll in one page --------------
+	// End clock ----------------------
+	// Scroll in one page -------------
 	function scrollToNext() {
 		if(new Date().getTime() - transB.getTime() < 500) {
 			return;
@@ -134,8 +187,8 @@
 			transB = new Date();
 		}
 	}
-	// ---------------------------------
-	// INIT-----------------------------
+	// End -----------------------------
+	// Init ----------------------------
 	$(window).resize(function(e) {
 		init();
 		$(document).onePageScroll();
@@ -155,5 +208,5 @@
 		$(".modal[data-modal='" + modal + "']").modal(true);
 	});
 	init();
-	// ---------------------------------
+	// End -----------------------------
 }(jQuery);

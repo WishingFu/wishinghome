@@ -61,6 +61,15 @@ p {
 .modal-header-icons span {
 	cursor: pointer;
 }
+.modal-header-icons-right {
+	position: absolute;
+	right: 0;
+	text-align: right;
+}
+.modal-header-icons-right span {
+	cursor: pointer;
+	padding: 0 1.7rem;
+}
 .modal-header-title {
 	display: inline-block;
 }
