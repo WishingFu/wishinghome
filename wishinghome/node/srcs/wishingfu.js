@@ -79,7 +79,6 @@
 
 			}
 			$.extend({}, defaults, options);
-
 		},
 		clock : function(options) {
 			var defaults = {

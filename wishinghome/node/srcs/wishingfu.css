@@ -180,3 +180,7 @@ button {
 	background-color: #D9E9FD;
 	box-shadow: none;
 }
+
+button:active {
+	box-shadow: none;
+}
