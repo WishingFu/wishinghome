@@ -42,7 +42,13 @@ $(document).ready(function() {
 
 	var mcanvas = $("#mcanvas")[0];
 	var mc = mcanvas.getContext("2d");
-	something(mc);
+	mc.strokeStyle = "black";
+	mc.lineWidth = 1;
+	mc.fillStyle = "black";
+	setInterval(function() {
+		mc.clearRect(0, 0, mcanvas.width, mcanvas.height);
+		something(mc);
+	}, 10);
 });
 
 function openModalTest() {	
@@ -54,31 +60,22 @@ function restartSanke() {
 }
 
 function something(mc) {
-	mc.strokeStyle = "black";
-	mc.lineWidth = 2;
-	mc.fillStyle = "black";
-
 	var m = mc.canvas;
 	mc.save();
+	mc.translate(m.width / 2, 100);
+	var t = (new Date().getMilliseconds()) / 1000 * Math.PI ;
+	var s = - Math.PI / 5 * Math.cos( 2 * t );
+	var o = s;
+	mc.rotate(o);
 	mc.beginPath();
-	mc.moveTo(m.width / 2, 100);
-	mc.arc(m.width / 2, 100, 4, 0, 2 * Math.PI, false);
-	mc.moveTo(m.width / 2, 100);
-	mc.lineTo(m.width / 2, 300);
-	mc.moveTo(m.width / 2, 300);
-	mc.arc(m.width / 2, 300, 15, 0, 2 * Math.PI, false);
+	mc.moveTo(0, 0);
+	mc.arc(0, 0, 4, 0, 2 * Math.PI, false);
+	mc.moveTo(0, 0);
+	mc.lineTo(0, 200);
+	mc.moveTo(0, 200);
+	mc.arc(0, 200, 15, 0, 2 * Math.PI, false);
 	mc.closePath();
 	mc.stroke();
 	mc.fill();
 	mc.restore();
-
-	var bounds = [5 / 4 * Math.PI, 7 / 4 * Math.PI];
-	movingBall(mc, bounds);
-}
-
-function movingBall(mc, bounds) {
-	direct = true;
-	if(direct) {
-		
-	}
 }
