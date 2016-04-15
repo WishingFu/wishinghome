@@ -74,14 +74,13 @@ function drawStaticBall(mc, ac) {
 	var m = mc.canvas;
 	mc.save();
 	mc.translate(m.width / 2, 100);
-	mc.rotate(ac);
 	drawBall(mc);
 	mc.restore();
-	mc.save();
-	mc.translate(m.width / 2, 100);
-	mc.rotate(-ac);
-	drawBall(mc);
-	mc.restore();
+	// mc.save();
+	// mc.translate(m.width / 2, 100);
+	// mc.rotate(-ac);
+	// drawBall(mc);
+	// mc.restore();
 }
 
 function drawMovingBall(mc, o) {
