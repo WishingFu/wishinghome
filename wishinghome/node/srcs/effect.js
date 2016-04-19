@@ -62,25 +62,11 @@ function restartSanke() {
 function something(mc) {
 	var m = mc.canvas;
 	var t = (new Date().getMilliseconds()) / 1000 * Math.PI ;
-	var s = - 1 / 2 * Math.cos( 2 * t );
-	var o = s * Math.PI / 2.5;
+	var s = - Math.cos( 2 * t );
+	var o = s * Math.PI / 6;
 	var ac = Math.asin(15 / 200);
 	var abs = Math.abs(o - Math.PI / 2);
-	// drawStaticBall(mc, ac);
 	drawMovingBall(mc, o);
-}
-
-function drawStaticBall(mc, ac) {
-	var m = mc.canvas;
-	mc.save();
-	mc.translate(m.width / 2, 100);
-	drawBall(mc);
-	mc.restore();
-	// mc.save();
-	// mc.translate(m.width / 2, 100);
-	// mc.rotate(-ac);
-	// drawBall(mc);
-	// mc.restore();
 }
 
 function drawMovingBall(mc, o) {

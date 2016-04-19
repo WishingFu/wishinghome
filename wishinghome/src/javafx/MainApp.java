@@ -60,7 +60,6 @@ public class MainApp extends Application{
 					new KeyFrame(new Duration(4000), 
 							new KeyValue(circle.translateXProperty(), Math.random() * 800),
 							new KeyValue(circle.translateYProperty(), Math.random() * 600)));
-
 		}
 		time.play();
 		primaryStage.show();
