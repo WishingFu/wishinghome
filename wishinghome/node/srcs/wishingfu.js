@@ -1,3 +1,4 @@
+"use strict"
 /*
 	options ==> {
 		... : ...,
@@ -46,9 +47,7 @@
 			var pages_length = pages.length;
 			basePercentage = 100 / pages_length;
 			for(var i = 0; i < pages_length; i++) {
-				if($(pages[i]).hasClass("active")) {
-					page_index = i;
-				}
+				if($(pages[i]).hasClass("active")) page_index = i;
 				$(pages[i]).css("height", height);
 				$(pages[i]).css("transition", "all 0.5s ease-out");
 			}
@@ -56,6 +55,7 @@
 			$("body").css("transform", "translateY(-" + basePercentage * (Number(page_index)) + "%)");
 			$("html").off("wheel");
 			$("html").on("wheel", function(e) {
+				// console.log($("body")[0].scrollTop);
 				if(e.originalEvent.deltaY > 0) {
 					scrollToNext();
 				} else if(e.originalEvent.deltaY < 0) {
@@ -124,7 +124,7 @@
 		c.arc(0, 0, 4, 0, 2 * Math.PI, false);
 		c.fill();
 		c.moveTo(0, 0);
-		c.lineTo(100 * Math.cos(s_angle), 100 * Math.sin(s_angle));
+		c.lineTo(100* Math.cos(s_angle), 100* Math.sin(s_angle));
 		c.moveTo(0, 0);
 		c.lineTo(80 * Math.cos(m_angle), 80 * Math.sin(m_angle));
 		c.moveTo(0, 0);

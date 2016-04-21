@@ -49,7 +49,25 @@ $(document).ready(function() {
 		mc.clearRect(0, 0, mcanvas.width, mcanvas.height);
 		something(mc);
 	}, 5);
+
+	$(".article").change(function(e) {
+		console.log($("input[name='testFile']"));
+	})
 });
+
+function testFileUpload() {
+	var data = new FormData($("#test_form")[0]);
+	$.ajax({
+		url : "./file_upload/",
+		type: "post",
+		dataType: "json",
+		data : data,
+		success: function(data) {
+			alert(data.result);
+		}
+	});
+	console.log($("#test_form").serialize());
+}
 
 function openModalTest() {	
 	$(".modal").modal(true);

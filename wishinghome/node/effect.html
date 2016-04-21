@@ -53,6 +53,15 @@
 				<p>&nbsp;&nbsp;江国，正寂寂。叹寄与路遥，夜雪初积。翠尊易泣，红萼无言耿相忆。长记曾携手处，千树压，西湖寒碧。又片片吹尽也，几时见得？</p>
 			</article>
 		</div>
+		<div class="article">
+			<form id="test_form" enctype="multipart/form-data">
+				<label for="upload_file"></label>
+				<input id="upload_file" name="testFile" type="file" multiple></input>
+				<input name="fileName" type="text" value="testFile">
+				<input name="fileExt" type="text" value="jpg">
+			</form>
+			<button onclick="testFileUpload();">提交</button>
+		</div>
 	</div>
 	<div class="page" style="background-color: #82DA66">
 		<div>
@@ -82,6 +91,7 @@
 				<p>2016-4-11</p>
 			</div>
 		</div>
+		
 	</div>
 
 	<div class="modal" data-modal="snake">
