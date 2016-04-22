@@ -12,7 +12,7 @@ function route(pathname, request, response) {
 			// extname = extname.indexOf("?") === -1 ? extname : extname.substring(0, extname.indexOf("?"));
 			fs.readFile("./" + pathname, function(err, data){
 				if(err) {
-					response.writeHead(404, {'Content-Type': 'text/plain'});
+					response.writeHead(404, {'Content-Type': 'text/html'});
 					response.write("<h3>This request URL " + pathname + " was not found on this server.</h3>");
 					response.end();
 					return false;
@@ -31,7 +31,7 @@ function route(pathname, request, response) {
 		}
 	} catch(e) {
 		console.log(e);
-		response.writeHead(500, {'Content-Type': 'text/plain'});
+		response.writeHead(500, {'Content-Type': 'text/html'});
         response.write("<h3>There is something wrong happened..</h3>");
         response.end();
 	}

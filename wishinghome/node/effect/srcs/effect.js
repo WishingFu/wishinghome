@@ -1,6 +1,25 @@
+"use strict"
 $(document).ready(function() {
-	$(document).onePageScroll();
-	$("#clock").clock();
+	$(".page").inpageScroll("init", {
+		onpageEnd : function() {
+			console.log("page end");
+			$.ajax({
+				url: "../hf/effect/article/",
+				type : "GET",
+				success: function(data) {
+					$(".page").append(data);
+					$(".page").inpageScroll("resize");
+				}
+			})
+		},
+		onpageBegin : function() {
+			
+		}
+	});
+	$("body").dynamicPages({
+		dpages: ["article", "shake"]
+	});
+	// $("#clock").clock();
 	$("#left").vertical_tree_menu({
 		menus : [
 		{
@@ -40,42 +59,19 @@ $(document).ready(function() {
 		}]
 	});
 
-	var mcanvas = $("#mcanvas")[0];
-	var mc = mcanvas.getContext("2d");
-	mc.strokeStyle = "black";
-	mc.lineWidth = 1;
-	mc.fillStyle = "black";
-	setInterval(function() {
-		mc.clearRect(0, 0, mcanvas.width, mcanvas.height);
-		something(mc);
-	}, 5);
-
+//	var mcanvas = $("#mcanvas")[0];
+//	var mc = mcanvas.getContext("2d");
+//	mc.strokeStyle = "black";
+//	mc.lineWidth = 1;
+//	mc.fillStyle = "black";
+	// setInterval(function() {
+	// 	mc.clearRect(0, 0, mcanvas.width, mcanvas.height);
+	// 	something(mc);
+	// }, 5);
 	$(".article").change(function(e) {
 		console.log($("input[name='testFile']"));
 	})
 });
-
-function testFileUpload() {
-	var data = new FormData($("#test_form")[0]);
-	$.ajax({
-		url : "./file_upload/",
-		type: "post",
-		dataType: "json",
-		data : data,
-		success: function(data) {
-			alert(data.result);
-		}
-	});
-	console.log($("#test_form").serialize());
-}
-
-function openModalTest() {	
-	$(".modal").modal(true);
-}
-
-function restartSanke() {
-	snakeF.contentWindow.gameInit();
-}
 
 function something(mc) {
 	var m = mc.canvas;
@@ -106,4 +102,26 @@ function drawBall(mc) {
 	mc.closePath();
 	mc.stroke();
 	mc.fill();
+}
+
+function testFileUpload() {
+	var data = new FormData($("#test_form")[0]);
+	$.ajax({
+		url : "./file_upload/",
+		processData: false,
+		type: "post",
+		dataType: "json",
+		data : data,
+		success: function(data) {
+			alert(data.result);
+		}
+	});
+}
+
+function openModalTest() {	
+	$(".modal").modal(true);
+}
+
+function restartSanke() {
+	snakeF.contentWindow.gameInit();
 }

@@ -16,7 +16,8 @@ article {
 p {
 	margin: 1rem 0rem;
 }
-.page {
+body {
+	overflow: hidden;
 	/*display: none;*/
 }
 .active {
