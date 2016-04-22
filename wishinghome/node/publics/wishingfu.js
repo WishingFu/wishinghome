@@ -50,7 +50,7 @@
 						onpageEnd : function(){},
 						onpageBegin : function(){},
 					}
-					$this.css("transition", "all 0.4s ease-out");
+					$this.css("transition", "all 0.3s ease-out");
 					config = $.extend({}, defaults, options);
 					var wh = height;
 					var eh = Number($this.css("height").replace("px", ""));
