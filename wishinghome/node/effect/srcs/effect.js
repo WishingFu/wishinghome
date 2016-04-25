@@ -3,6 +3,21 @@ $(document).ready(function() {
 	$("body").dynamicPages({
 		dpages: ["article", "shake"]
 	});
+	$().onePageScroll();
+	$(".page").inpageScroll("init");
+	$("#page_2").inpageScroll("init", {
+		onpageend : function() {
+			$.ajax({
+				url : "../hf/effect/article",
+				type: "get",
+				success: function(data) {
+					console.log("page 2 end");
+					$("#page_2").append(data);
+					$("#page_2").inpageScroll("resize");
+				}
+			})
+		}
+	})
 	// $("#clock").clock();
 	// var mcanvas = $("#mcanvas")[0];
 	// var mc = mcanvas.getContext("2d");

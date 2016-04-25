@@ -57,36 +57,49 @@
 				switch(method) {
 					case "init" : +function(options) {
 						// -------------------init---------------------
-						$.inpage.scrolls.divs.push($this);
-						var defaults = {
-							ppws : 80,
-							onpageEnd : function(){},
-							onpageBegin : function(){},
-							pn : 0,
-							pm : 0,
-							wh : 0
-						}	
-						var config = $.extend({}, defaults, options);
-						$.inpage.scrolls.configs.push(config);
-						
-						$this.css("transition", "all 0.3s ease-out");
-						$this.css("min-height", $.inpage.height);
-						$this.attr("data-scroll-index", $.inpage.scrolls.divs.length - 1);
+						var config;
+						if(!$this.attr("data-scroll-index")) {
+							$.inpage.scrolls.divs.push($this);
+							$this.attr("data-scroll-index", $.inpage.scrolls.divs.length - 1);
+							//----------------config params-------------------
+							//---------- ppws : px per wheel scroll ----------
+							//----------pn : this scroll position now---------
+							//----------pm : this scroll position max---------
+							//---------------wh : window height --------------
+							//-----tb : this scroll transform begins time-----
+							var defaults = {
+								ppws : 80,
+								onpageend : function(){console.log("default page end")},
+								onpagebegin : function(){},
+								pn : 0, pm : 0, wh : 0, tb : new Date(),
+							}	
+							config = $.extend({}, defaults, options);
+							$.inpage.scrolls.configs.push(config);
+						} else {
+							var index = $this.attr("data-scroll-index");
+							$.inpage.scrolls.configs[index] = $.extend({}, $.inpage.scrolls.configs[index], options);
+							config = $.inpage.scrolls.configs[index];
+						}
+						$this.css("transition", "all 0.3s ease-out");	
 						config.wh = $.inpage.height;
-						var eh = Number($this.css("height").replace("px", ""));
-						config.pm = eh - config.wh;
+						config.pm = Number($this.css("height").replace("px", "")) - config.wh;
 						$this.off("wheel");
 						// ---------------------event-------------------
 						$this.on("wheel", function(e) {
-							if(config.pm > config.wh) {
+							var config = $.inpage.scrolls.configs[$this.attr("data-scroll-index")];
+							if(new Date().getTime() - config.tb.getTime() < 0) {
+								return;
+							}
+							config.tb = new Date();
+							if(config.pm > 0) {
 								if(e.originalEvent.deltaY > 0 && config.pn < config.pm - config.ppws) {
 									config.pn += config.ppws;
 									$this.css("transform", "translateY(-" + config.pn + "px)");
 								} else if(e.originalEvent.deltaY > 0 && config.pn < config.pm) {
 									config.pn = config.pm;
 									$this.css("transform", "translateY(-" + config.pn + "px)");
-									if(config.onpageEnd && typeof config.onpageEnd === "function") {
-										config.onpageEnd();
+									if(config.onpageend && typeof config.onpageend === "function") {
+										config.onpageend(); scrollToNext();
 									}
 								} else if(e.originalEvent.deltaY < 0 && config.pn > config.ppws) {
 									config.pn -= config.ppws;
@@ -94,35 +107,34 @@
 								} else if(e.originalEvent.deltaY < 0 && config.pn > 0) {
 									config.pn = 0;
 									$this.css("transform", "translateY(0)");
-									if(config.onpageBegin && typeof config.onpageBegin === "function") {
-										config.onpageBegin();
+									if(config.onpagebegin && typeof config.onpagebegin === "function") {
+										config.onpagebegin(); scrollToPrevious();
 									}
 								} else if(config.pn == 0){
-									if(config.onpageEnd && typeof config.onpageEnd === "function") {
-										config.onpageBegin();
+									if(config.onpageend && typeof config.onpageend === "function") {
+										config.onpagebegin(); scrollToPrevious();
 									}
 								} else if(config.pn < config.wh || config.pn === config.pm) {
-									if(config.onpageEnd && typeof config.onpageEnd === "function") {
-										config.onpageEnd();
+									if(config.onpageend && typeof config.onpageend === "function") {
+										config.onpageend(); scrollToNext();
 									}
 								}
 							} else if (config.pm <= 0 && e.originalEvent.deltaY < 0) {
-								if(config.onpageBegin && typeof config.onpageBegin === "function") {
-									config.onpageBegin();
+								if(config.onpagebegin && typeof config.onpagebegin === "function") {
+									config.onpagebegin();scrollToPrevious();
 								}
 							} else {
-								if(config.onpageEnd && typeof config.onpageEnd === "function") {
-									config.onpageEnd();
+								if(config.onpageend && typeof config.onpageend === "function") {
+									config.onpageend(); scrollToNext();
 								}
 							}
 						});
 					}(options); break;
 					// -----------------------------------------------------------------------
 					case "resize" : +function(options) {
-						var scroll_index = $this.attr("data-scroll-index");
-						var config = $.inpage.scrolls.configs[scroll_index];
-						var eh = Number($this.css("height").replace("px", ""));
-						config.pm = eh - $.inpage.height;
+						var config = $.inpage.scrolls.configs[$this.attr("data-scroll-index")];
+						config.wh = $.inpage.height;
+						config.pm = Number($this.css("height").replace("px", "")) - $.inpage.height;
 						if(config.pn > config.pm) {
 							config.pn = config.pm;
 							$this.css("transform", "translateY(-" + config.pn + "px)");
@@ -136,7 +148,7 @@
 		},
 		onePageScroll : function() {
 			$.inpage.pages = $(".page");	
-			$("body").css("height", $.inpage.height);
+			
 			for(var i = 0; i < $.inpage.pages.length; i++) {
 				if($($.inpage.pages[i]).hasClass("active")) $.inpage.index = i;
 				$($.inpage.pages[i]).css("top", 100 * i + "%");
@@ -275,17 +287,17 @@
 	// Init ----------------------------
 	$(window).resize(function(e) {
 		init();
-		for(var i in $.inpage.scrolls.divs) {
-			var inp = $.inpage.scrolls.divs[i];
-			// if(inp.config.status)
-			 inp.inpageScroll("resize");
-		}
+		for(var i in $.inpage.scrolls.divs)
+			$.inpage.scrolls.divs[i].inpageScroll("resize");
 	});
 	function init() {
 		$.inpage.height = window.innerHeight;
+		$(".page").css("min-height", $.inpage.height);
+		$(".page").css("height", "auto");
 		$(".modal").css("height", $.inpage.height);
 		$(".page-modal").css("height", $.inpage.height);
-		$("body").css("transition", "all 0.5s ease-out");
+		$("body").css("transition", "all 0.7s ease-out");
+		$("body").css("height", $.inpage.height);
 	}
 	$(".close-modal").click(function() {
 		$(this).parent(".modal").modal(false);
@@ -295,14 +307,5 @@
 		$(".modal[data-modal='" + modal + "']").modal(true);
 	});
 	init();
-	$().onePageScroll();
-	$(".page").inpageScroll("init", {
-		onpageEnd : function() {
-			$().scrollToNext();
-		},
-		onpageBegin : function() {
-			$().scrollToPrevious();
-		}
-	});
 	// End -----------------------------
 }(jQuery);
