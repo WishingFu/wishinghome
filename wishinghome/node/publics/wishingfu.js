@@ -38,7 +38,18 @@
 		basePercentage : 100,
 		transB : new Date(),
 		height : 0,
+		pageScroll : true
 	}
+	$.preventPageScroll = function() {
+		$.inpage.pageScroll = false;
+	}
+	$.scrollToNext = function() {
+		scrollToNext();
+	}
+	$.scrollToPrevious = function() {
+		scrollToPrevious();
+	}
+
 	$.fn.extend({
 		vertical_tree_menu : function(options) {
 			var menus = options.menus;
@@ -69,7 +80,7 @@
 							//-----tb : this scroll transform begins time-----
 							var defaults = {
 								ppws : 80,
-								onpageend : function(){console.log("default page end")},
+								onpageend : function(){},
 								onpagebegin : function(){},
 								pn : 0, pm : 0, wh : 0, tb : new Date(),
 							}	
@@ -86,7 +97,6 @@
 						$this.off("wheel");
 						// ---------------------event-------------------
 						$this.on("wheel", function(e) {
-							var config = $.inpage.scrolls.configs[$this.attr("data-scroll-index")];
 							if(new Date().getTime() - config.tb.getTime() < 0) {
 								return;
 							}
@@ -98,18 +108,12 @@
 								} else if(e.originalEvent.deltaY > 0 && config.pn < config.pm) {
 									config.pn = config.pm;
 									$this.css("transform", "translateY(-" + config.pn + "px)");
-									if(config.onpageend && typeof config.onpageend === "function") {
-										config.onpageend(); scrollToNext();
-									}
 								} else if(e.originalEvent.deltaY < 0 && config.pn > config.ppws) {
 									config.pn -= config.ppws;
 									$this.css("transform", "translateY(-" + config.pn + "px)");
 								} else if(e.originalEvent.deltaY < 0 && config.pn > 0) {
 									config.pn = 0;
 									$this.css("transform", "translateY(0)");
-									if(config.onpagebegin && typeof config.onpagebegin === "function") {
-										config.onpagebegin(); scrollToPrevious();
-									}
 								} else if(config.pn == 0){
 									if(config.onpageend && typeof config.onpageend === "function") {
 										config.onpagebegin(); scrollToPrevious();
@@ -147,20 +151,14 @@
 			});
 		},
 		onePageScroll : function() {
-			$.inpage.pages = $(".page");	
-			
+			$.inpage.pages = $(".page");		
 			for(var i = 0; i < $.inpage.pages.length; i++) {
 				if($($.inpage.pages[i]).hasClass("active")) $.inpage.index = i;
 				$($.inpage.pages[i]).css("top", 100 * i + "%");
 				$($.inpage.pages[i]).css("transition", "all 0.5s ease-out");
 			}
 			if($.inpage.page_index == -1) $.inpage.page_index = 0;
-		},
-		scrollToNext : function() {
-			scrollToNext();
-		},
-		scrollToPrevious : function() {
-			scrollToPrevious();
+				$("body").css("transform", "translateY(-" + $.inpage.basePercentage * (Number($.inpage.page_index)) + "%)");
 		},
 		modal : function(flag) {
 			if(flag) {
@@ -263,6 +261,10 @@
 	// End clock ----------------------
 	// Scroll in one page -------------
 	function scrollToNext() {
+		if(!$.inpage.pageScroll) {
+			$.inpage.pageScroll = true;
+			return;
+		}
 		if(new Date().getTime() - $.inpage.transB.getTime() < 500) {
 			return;
 		}
@@ -307,5 +309,7 @@
 		$(".modal[data-modal='" + modal + "']").modal(true);
 	});
 	init();
+	$().onePageScroll();
+	$(".page").inpageScroll("init");
 	// End -----------------------------
 }(jQuery);

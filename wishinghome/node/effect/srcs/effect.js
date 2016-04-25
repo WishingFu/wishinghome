@@ -3,15 +3,18 @@ $(document).ready(function() {
 	$("body").dynamicPages({
 		dpages: ["article", "shake"]
 	});
-	$().onePageScroll();
-	$(".page").inpageScroll("init");
+	$("#page_1").inpageScroll("init", {
+		onpageend : function() {
+			$.preventPageScroll();
+			$.scrollToNext();
+		}
+	})
 	$("#page_2").inpageScroll("init", {
 		onpageend : function() {
 			$.ajax({
 				url : "../hf/effect/article",
 				type: "get",
 				success: function(data) {
-					console.log("page 2 end");
 					$("#page_2").append(data);
 					$("#page_2").inpageScroll("resize");
 				}
