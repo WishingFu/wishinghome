@@ -23,6 +23,10 @@ body {
 .active {
 	display: block;
 }
+.page {
+	position: absolute;
+	width: 100%;
+}
 /*@media(min-width: 768px) {
 	.page {
 		width: 768px;

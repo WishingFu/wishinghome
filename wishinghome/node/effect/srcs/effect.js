@@ -1,69 +1,11 @@
 "use strict"
 $(document).ready(function() {
-	$(".page").inpageScroll("init", {
-		onpageEnd : function() {
-			console.log("page end");
-			$.ajax({
-				url: "../hf/effect/article/",
-				type : "GET",
-				success: function(data) {
-					$(".page").append(data);
-					$(".page").inpageScroll("resize");
-				}
-			})
-		},
-		onpageBegin : function() {
-			
-		}
-	});
 	$("body").dynamicPages({
 		dpages: ["article", "shake"]
 	});
 	// $("#clock").clock();
-	$("#left").vertical_tree_menu({
-		menus : [
-		{
-			text : 1,
-			link : "#",
-			subs : [{
-				text : "1 - 1",
-				link : "#",
-				subs : [{
-					text : "1 - 1 - 1",
-					link : "#"
-				}, {
-					text : "1 - 1 - 2",
-					link : "#"
-				}]
-			}, {
-				text : "1 - 2",
-				link : "#",
-				subs : [{
-					text : "1 - 2 - 1",
-					link : "#"
-				}]
-			}]
-		}, {
-			text : 2,
-			link : "#",
-			subs : [{
-				text : "2 - 1",
-				link : "#"
-			}, {
-				text : "2 - 2",
-				link : "#"
-			}]
-		}, {
-			text : 3,
-			link : "#",
-		}]
-	});
-
-//	var mcanvas = $("#mcanvas")[0];
-//	var mc = mcanvas.getContext("2d");
-//	mc.strokeStyle = "black";
-//	mc.lineWidth = 1;
-//	mc.fillStyle = "black";
+	// var mcanvas = $("#mcanvas")[0];
+	// var mc = mcanvas.getContext("2d");
 	// setInterval(function() {
 	// 	mc.clearRect(0, 0, mcanvas.width, mcanvas.height);
 	// 	something(mc);
@@ -125,3 +67,42 @@ function openModalTest() {
 function restartSanke() {
 	snakeF.contentWindow.gameInit();
 }
+
+// $("#left").vertical_tree_menu({
+// 		menus : [
+// 		{
+// 			text : 1,
+// 			link : "#",
+// 			subs : [{
+// 				text : "1 - 1",
+// 				link : "#",
+// 				subs : [{
+// 					text : "1 - 1 - 1",
+// 					link : "#"
+// 				}, {
+// 					text : "1 - 1 - 2",
+// 					link : "#"
+// 				}]
+// 			}, {
+// 				text : "1 - 2",
+// 				link : "#",
+// 				subs : [{
+// 					text : "1 - 2 - 1",
+// 					link : "#"
+// 				}]
+// 			}]
+// 		}, {
+// 			text : 2,
+// 			link : "#",
+// 			subs : [{
+// 				text : "2 - 1",
+// 				link : "#"
+// 			}, {
+// 				text : "2 - 2",
+// 				link : "#"
+// 			}]
+// 		}, {
+// 			text : 3,
+// 			link : "#",
+// 		}]
+// 	});

@@ -27,6 +27,18 @@
 	}
 */
 +function($) {
+	$.inpage = {
+		scrolls : {
+			divs : [],
+			configs : []
+		},
+		pages : [],
+		page_index : -1,
+		scroll_index : -1,
+		basePercentage : 100,
+		transB : new Date(),
+		height : 0,
+	}
 	$.fn.extend({
 		vertical_tree_menu : function(options) {
 			var menus = options.menus;
@@ -39,92 +51,104 @@
 		dynamicPages : function(options) {
 			dpages = options.dpages;
 		},
-		inpageScrolls : [],
 		inpageScroll : function(method, options) {
-			var $this = $(this);
-			switch(method) {
-				case "init" : +function(options) {
-					$().inpageScrolls.push($this);
-					var defaults = {
-						ppws : 80,
-						onpageEnd : function(){},
-						onpageBegin : function(){},
-					}
-					$this.css("transition", "all 0.3s ease-out");
-					config = $.extend({}, defaults, options);
-					var wh = height;
-					var eh = Number($this.css("height").replace("px", ""));
-					pm = 0
-					pn = 0;
-					pm = eh - wh;
-					$this.off("wheel");
-					$this.on("wheel", function(e) {
-						if(e.originalEvent.deltaY > 0 && pn < pm - config.ppws) {
-							pn += config.ppws;
-							$this.css("transform", "translateY(-" + pn + "px)");
-						} else if(e.originalEvent.deltaY > 0 && pn < pm) {
-							pn = pm;
-							$this.css("transform", "translateY(-" + pn + "px)");
-							if(config.onpageEnd && typeof config.onpageEnd === "function") {
-								config.onpageEnd();
+			$(this).each(function() {
+				var $this = $(this);
+				switch(method) {
+					case "init" : +function(options) {
+						// -------------------init---------------------
+						$.inpage.scrolls.divs.push($this);
+						var defaults = {
+							ppws : 80,
+							onpageEnd : function(){},
+							onpageBegin : function(){},
+							pn : 0,
+							pm : 0,
+							wh : 0
+						}	
+						var config = $.extend({}, defaults, options);
+						$.inpage.scrolls.configs.push(config);
+						
+						$this.css("transition", "all 0.3s ease-out");
+						$this.css("min-height", $.inpage.height);
+						$this.attr("data-scroll-index", $.inpage.scrolls.divs.length - 1);
+						config.wh = $.inpage.height;
+						var eh = Number($this.css("height").replace("px", ""));
+						config.pm = eh - config.wh;
+						$this.off("wheel");
+						// ---------------------event-------------------
+						$this.on("wheel", function(e) {
+							if(config.pm > config.wh) {
+								if(e.originalEvent.deltaY > 0 && config.pn < config.pm - config.ppws) {
+									config.pn += config.ppws;
+									$this.css("transform", "translateY(-" + config.pn + "px)");
+								} else if(e.originalEvent.deltaY > 0 && config.pn < config.pm) {
+									config.pn = config.pm;
+									$this.css("transform", "translateY(-" + config.pn + "px)");
+									if(config.onpageEnd && typeof config.onpageEnd === "function") {
+										config.onpageEnd();
+									}
+								} else if(e.originalEvent.deltaY < 0 && config.pn > config.ppws) {
+									config.pn -= config.ppws;
+									$this.css("transform", "translateY(-" + config.pn + "px)");
+								} else if(e.originalEvent.deltaY < 0 && config.pn > 0) {
+									config.pn = 0;
+									$this.css("transform", "translateY(0)");
+									if(config.onpageBegin && typeof config.onpageBegin === "function") {
+										config.onpageBegin();
+									}
+								} else if(config.pn == 0){
+									if(config.onpageEnd && typeof config.onpageEnd === "function") {
+										config.onpageBegin();
+									}
+								} else if(config.pn < config.wh || config.pn === config.pm) {
+									if(config.onpageEnd && typeof config.onpageEnd === "function") {
+										config.onpageEnd();
+									}
+								}
+							} else if (config.pm <= 0 && e.originalEvent.deltaY < 0) {
+								if(config.onpageBegin && typeof config.onpageBegin === "function") {
+									config.onpageBegin();
+								}
+							} else {
+								if(config.onpageEnd && typeof config.onpageEnd === "function") {
+									config.onpageEnd();
+								}
 							}
-						} else if(e.originalEvent.deltaY < 0 && pn > config.ppws) {
-							pn -= config.ppws;
-							$this.css("transform", "translateY(-" + pn + "px)");
-						} else if(e.originalEvent.deltaY < 0 && pn > 0) {
-							pn = 0;
-							$this.css("transform", "translateY(0)");
-							if(config.onpageBegin && typeof config.onpageBegin === "function") {
-								config.onpageBegin();
-							}
-						} else if(pn == 0){
-							if(config.onpageEnd && typeof config.onpageEnd === "function") {
-								config.onpageBegin();
-							}
-						} else {
-							if(config.onpageEnd && typeof config.onpageEnd === "function") {
-								config.onpageEnd();
-							}
+						});
+					}(options); break;
+					// -----------------------------------------------------------------------
+					case "resize" : +function(options) {
+						var scroll_index = $this.attr("data-scroll-index");
+						var config = $.inpage.scrolls.configs[scroll_index];
+						var eh = Number($this.css("height").replace("px", ""));
+						config.pm = eh - $.inpage.height;
+						if(config.pn > config.pm) {
+							config.pn = config.pm;
+							$this.css("transform", "translateY(-" + config.pn + "px)");
 						}
-					});
-				}(options); break;
-				case "resize" : +function() {
-					var wh = height;
-					var eh = Number($this.css("height").replace("px", ""));
-					pm = eh - wh;
-					if(pn > pm) {
-						pn = pm;
-						$this.css("transform", "translateY(-" + pn + "px)");
-					}
-				}(); break;
-			}
+					}(options); break;
+					case "destroy" : +function(options) {
+						$this.off("wheel");
+					}(options); break;
+				}
+			});
 		},
 		onePageScroll : function() {
-			pages = [];
-			page_index = -1;
-			basePercentage = 0;
-			transB = new Date();
-
-			// $("html").css("overflow", "hidden");
-			pages = $(".page");
-			var pages_length = pages.length;
-			basePercentage = 100 / pages_length;
-			for(var i = 0; i < pages_length; i++) {
-				if($(pages[i]).hasClass("active")) page_index = i;
-				$(pages[i]).css("height", height + 500);
-				$(pages[i]).css("transition", "all 0.5s ease-out");
+			$.inpage.pages = $(".page");	
+			$("body").css("height", $.inpage.height);
+			for(var i = 0; i < $.inpage.pages.length; i++) {
+				if($($.inpage.pages[i]).hasClass("active")) $.inpage.index = i;
+				$($.inpage.pages[i]).css("top", 100 * i + "%");
+				$($.inpage.pages[i]).css("transition", "all 0.5s ease-out");
 			}
-			if(page_index == -1) page_index = 0;
-			$("body").css("transform", "translateY(-" + basePercentage * (Number(page_index)) + "%)");
-			$("html").off("wheel");
-			$("html").on("wheel", function(e) {
-				// console.log($("body")[0].scrollTop);
-				if(e.originalEvent.deltaY > 0) {
-					scrollToNext();
-				} else if(e.originalEvent.deltaY < 0) {
-					scrollToPrevious();
-				}
-			})
+			if($.inpage.page_index == -1) $.inpage.page_index = 0;
+		},
+		scrollToNext : function() {
+			scrollToNext();
+		},
+		scrollToPrevious : function() {
+			scrollToPrevious();
 		},
 		modal : function(flag) {
 			if(flag) {
@@ -150,7 +174,7 @@
 			var config = $.extend({}, defaults, options);
 			clock = $(this)[0];
 			c = clock.getContext("2d");
-			initC(c);
+			initCanvas(c);
 			timeInterval = setInterval(function() {
 				c.clearRect(0, 0, 550, 500);
 				drawClockByTimeNow(c);
@@ -158,7 +182,7 @@
 		}
 	})
 	// Clock------------------------
-	function initC(c) {
+	function initCanvas(c) {
 		c.strokeStyle = "rgba(152, 34, 155, 0.5)";
 		c.shadowColor = "black";
 		c.globalAlpha = 0.8;
@@ -227,42 +251,41 @@
 	// End clock ----------------------
 	// Scroll in one page -------------
 	function scrollToNext() {
-		if(new Date().getTime() - transB.getTime() < 500) {
+		if(new Date().getTime() - $.inpage.transB.getTime() < 500) {
 			return;
 		}
-		scroll_flag = true;
-		if(page_index < pages.length - 1) {
-			page_index++;
-			$("body").css("transform", "translateY(-" + basePercentage * (Number(page_index)) + "%)");
-			transB = new Date();	
+		if($.inpage.page_index < $.inpage.pages.length - 1) {
+			$.inpage.page_index++;
+			$("body").css("transform", "translateY(-" + $.inpage.basePercentage * (Number($.inpage.page_index)) + "%)");
+			$.inpage.transB = new Date();	
 		}
 	}
 
 	function scrollToPrevious() {
-		if(new Date().getTime() - transB.getTime() < 500) {
+		if(new Date().getTime() - $.inpage.transB.getTime() < 500) {
 			return;
 		}
-		scroll_flag = true;
-		if(page_index > 0) {
-			page_index--;
-			$("body").css("transform", "translateY(-" + basePercentage * (Number(page_index)) + "%");
-			transB = new Date();
+		if($.inpage.page_index > 0) {
+			$.inpage.page_index--;
+			$("body").css("transform", "translateY(-" + $.inpage.basePercentage * (Number($.inpage.page_index)) + "%)");
+			$.inpage.transB = new Date();
 		}
 	}
 	// End -----------------------------
 	// Init ----------------------------
 	$(window).resize(function(e) {
 		init();
-		for(var i in $().inpageScrolls) {
-			$().inpageScrolls[i].inpageScroll("resize");
+		for(var i in $.inpage.scrolls.divs) {
+			var inp = $.inpage.scrolls.divs[i];
+			// if(inp.config.status)
+			 inp.inpageScroll("resize");
 		}
 	});
 	function init() {
-		width = window.innerWidth;
-		height = window.innerHeight;
-		$(".modal").css("height", height);
-		$(".page-modal").css("height", height);
-		$("body").css("transition", "all 0.3s ease-out");
+		$.inpage.height = window.innerHeight;
+		$(".modal").css("height", $.inpage.height);
+		$(".page-modal").css("height", $.inpage.height);
+		$("body").css("transition", "all 0.5s ease-out");
 	}
 	$(".close-modal").click(function() {
 		$(this).parent(".modal").modal(false);
@@ -272,5 +295,14 @@
 		$(".modal[data-modal='" + modal + "']").modal(true);
 	});
 	init();
+	$().onePageScroll();
+	$(".page").inpageScroll("init", {
+		onpageEnd : function() {
+			$().scrollToNext();
+		},
+		onpageBegin : function() {
+			$().scrollToPrevious();
+		}
+	});
 	// End -----------------------------
 }(jQuery);
