@@ -40,6 +40,7 @@
 		height : 0,
 		pageScroll : true
 	}
+	// -----------once---------------
 	$.preventPageScroll = function() {
 		$.inpage.pageScroll = false;
 	}
@@ -88,8 +89,7 @@
 							$.inpage.scrolls.configs.push(config);
 						} else {
 							var index = $this.attr("data-scroll-index");
-							$.inpage.scrolls.configs[index] = $.extend({}, $.inpage.scrolls.configs[index], options);
-							config = $.inpage.scrolls.configs[index];
+							config = $.inpage.scrolls.configs[index] = $.extend({}, $.inpage.scrolls.configs[index], options);
 						}
 						$this.css("transition", "all 0.3s ease-out");	
 						config.wh = $.inpage.height;
