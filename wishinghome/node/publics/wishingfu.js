@@ -73,16 +73,20 @@
 						if(!$this.attr("data-scroll-index")) {
 							$.inpage.scrolls.divs.push($this);
 							$this.attr("data-scroll-index", $.inpage.scrolls.divs.length - 1);
-							//----------------config params-------------------
-							//---------- ppws : px per wheel scroll ----------
-							//----------pn : this scroll position now---------
-							//----------pm : this scroll position max---------
-							//---------------wh : window height --------------
-							//-----tb : this scroll transform begins time-----
+							// ----------------config params-------------------
+							// ---------- ppws : px per wheel scroll ----------
+							// ----------pn : this scroll position now---------
+							// ----------pm : this scroll position max---------
+							// --------- instime : in page scroll time --------
+							// ---------------wh : window height --------------
+							// -----tb : this scroll transform begins time-----
 							var defaults = {
-								ppws : 80,
-								onpageend : function(){},
-								onpagebegin : function(){},
+								ppws 		: 80,
+								instime 	: 10,
+								beforepage	: function(){},
+								afterpage	: function(){},
+								onpageend 	: function(){},
+								onpagetop	: function(){},
 								pn : 0, pm : 0, wh : 0, tb : new Date(),
 							}	
 							config = $.extend({}, defaults, options);
@@ -92,12 +96,15 @@
 							config = $.inpage.scrolls.configs[index] = $.extend({}, $.inpage.scrolls.configs[index], options);
 						}
 						$this.css("transition", "all 0.3s ease-out");	
+						$this.css("will-change", "transform");
 						config.wh = $.inpage.height;
 						config.pm = Number($this.css("height").replace("px", "")) - config.wh;
+						$.inpage.scroll_index = 0
 						$this.off("wheel");
 						// ---------------------event-------------------
+
 						$this.on("wheel", function(e) {
-							if(new Date().getTime() - config.tb.getTime() < 0) {
+							if(new Date().getTime() - config.tb.getTime() < config.instime) {
 								return;
 							}
 							config.tb = new Date();
@@ -114,23 +121,27 @@
 								} else if(e.originalEvent.deltaY < 0 && config.pn > 0) {
 									config.pn = 0;
 									$this.css("transform", "translateY(0)");
-								} else if(config.pn == 0){
-									if(config.onpageend && typeof config.onpageend === "function") {
-										config.onpagebegin(); scrollToPrevious();
+								}  else if(e.originalEvent.deltaY < 0 && config.pn == 0 ){
+									if(config.onpagetop && typeof config.onpagetop === "function") {
+										config.onpagetop(); 
 									}
+									scrollToPrevious();
 								} else if(config.pn < config.wh || config.pn === config.pm) {
 									if(config.onpageend && typeof config.onpageend === "function") {
-										config.onpageend(); scrollToNext();
+										config.onpageend(); 
 									}
+									scrollToNext();
 								}
-							} else if (config.pm <= 0 && e.originalEvent.deltaY < 0) {
-								if(config.onpagebegin && typeof config.onpagebegin === "function") {
-									config.onpagebegin();scrollToPrevious();
+							} else if (config.pm <= 0 && e.originalEvent.deltaY < 0) {								
+								if(config.onpagetop && typeof config.onpagetop === "function") {
+									config.onpagetop(); 
 								}
-							} else {
+								scrollToPrevious();
+							} else {	
 								if(config.onpageend && typeof config.onpageend === "function") {
-									config.onpageend(); scrollToNext();
+									config.onpageend(); 
 								}
+								scrollToNext();
 							}
 						});
 					}(options); break;
@@ -269,8 +280,17 @@
 			return;
 		}
 		if($.inpage.page_index < $.inpage.pages.length - 1) {
+			var afterpage = $.inpage.scrolls.configs[$.inpage.page_index].afterpage;
 			$.inpage.page_index++;
 			$("body").css("transform", "translateY(-" + $.inpage.basePercentage * (Number($.inpage.page_index)) + "%)");
+			if( afterpage && typeof afterpage === "function") {
+				afterpage();
+			}
+			var beforepage = $.inpage.scrolls.configs[$.inpage.page_index].beforepage;
+			if(beforepage && typeof beforepage === "function") {
+				beforepage();
+			}
+
 			$.inpage.transB = new Date();	
 		}
 	}
@@ -280,8 +300,16 @@
 			return;
 		}
 		if($.inpage.page_index > 0) {
+			var afterpage = $.inpage.scrolls.configs[$.inpage.page_index].afterpage;
 			$.inpage.page_index--;
+			var beforepage = $.inpage.scrolls.configs[$.inpage.page_index].beforepage;
+			if( beforepage && typeof beforepage === "function") {
+				beforepage();
+			}
 			$("body").css("transform", "translateY(-" + $.inpage.basePercentage * (Number($.inpage.page_index)) + "%)");
+			if( afterpage && typeof afterpage === "function") {
+				afterpage();
+			}
 			$.inpage.transB = new Date();
 		}
 	}
@@ -298,7 +326,7 @@
 		$(".page").css("height", "auto");
 		$(".modal").css("height", $.inpage.height);
 		$(".page-modal").css("height", $.inpage.height);
-		$("body").css("transition", "all 0.7s ease-out");
+		$("body").css("transition", "all 0.7s ease");
 		$("body").css("height", $.inpage.height);
 	}
 	$(".close-modal").click(function() {
