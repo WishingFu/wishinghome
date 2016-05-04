@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mail</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		body{font-family: "Helvetica Neue","Hiragino Sans GB","Microsoft YaHei","\9ED1\4F53",Arial,sans-serif;}
+		div[class*='col-md'] {padding:0; margin-top: 1rem;}
+		.col-md-1 p{font-weight: bold;}
+		.col-md-11.col-md-offset-1 p{color:rgba(0,0,0,0.6)}
+		.col-md-12 h4{
+			padding-bottom: 1rem;
+			border-bottom: 1px solid rgba(0,0,0,0.2);
+		}
+	</style>
+  </head>
+  <body>
+	<div class="container">
+		<div class="row">
+		<!-- 用户信息 -->
+			<div>
+				<div class="col-md-12">
+	                 <h4>
+	                 	用户信息登记
+	                 </h4>
+	                 <p>
+	                 	给企业和组织提供更强大的业务服务与用户管理能力，帮助企业快速实现全新的公众号服务平台。
+	                 </p>
+	                 <dl>
+	                 	 <dd>用户信息登记并通过审核后,你将拥有一个账号,该账号:</dd>
+	                     <dd>1、具备企业号的大部分功能</dd>
+	                     <dd>2、检查你的邮件垃圾箱</dd>
+	                     <dd>3、若仍未收到确认，请尝试<a href="#">重新发送</a></dd>
+	                 </dl>
+	                 <p>
+	                 	请确认你的账号属于企业,政府,个人,团体,并分类别进行信息登记
+	                 </p>
+	                 <p>
+	                 	账号类型: <span>企业号</span>
+	                 </p>
+                 </div>
+                 <div class="col-md-1">
+                 	<p>主体类型 </p>
+                 </div>
+                 <div class="col-md-11">
+                 	<a href="#">如何选择主体类型?</a>
+                 </div>
+                <div class="col-md-11 col-md-offset-1 btn-group" role="group" aria-label="...">
+				    <button type="button" class="btn btn-default active">政府</button>
+				    <button type="button" class="btn btn-default">企业</button>
+				    <button type="button" class="btn btn-default">注册组织</button>
+				</div>
+				<div class="col-md-11 col-md-offset-1">
+					<p>政府包括国内,各级,各类政府机构,事业单位.....................................................</p>		
+				</div>
+			</div>
+			<!-- 主体信息 -->
+			<div>
+				<div class="col-md-12">
+					<h4>主体信息登记</h4>
+				</div>
+				<div class="col-md-1">
+                 	<p>政府全称</p>
+                 </div>
+                 <div class="col-md-11">
+                 	<input class="form-control" style="max-width: 400px;">
+                 </div>
+                 <div class="col-md-1">
+                 	<p>授权运营书 </p>
+                 </div>
+                 <div class="col-md-11">
+                 	<p>请上传你的运营书的照片</p>
+                 </div>
+                 <div class="col-md-11 col-md-offset-1">
+                 	<input type="file">
+                 </div>
+                </div>
+                <!-- 运营者信息 -->
+                <div>
+                 <div class="col-md-12">
+                 	<h4>运营者信息登记</h4>
+                 </div>
+                 <div class="col-md-1">
+                 	<p>身份证姓名 </p>
+                 </div>
+                 <div class="col-md-11">
+                 	<input class="form-control" style="max-width: 400px;">
+                 </div>
+                 <div class="col-md-11 col-md-offset-1">
+					<p>姓名...</p>		
+				 </div>
+                 <div class="col-md-1">
+                 	<p>身份证号 </p>
+                 </div>
+                 <div class="col-md-11">
+                 	<input class="form-control" style="max-width: 400px;">
+                 </div>
+                 <div class="col-md-11 col-md-offset-1">
+					<p>身份证嘛....</p>		
+				 </div>
+                 <div class="col-md-1">
+                 	<p>手机号码</p>
+                 </div>
+                 <div class="col-md-11">
+                 	<input class="form-control" style="max-width: 400px;display: inline;">
+                 	<button class="btn btn-default" style="">获取验证码</button>
+                 </div>
+                 <div class="col-md-11 col-md-offset-1">
+					<p>手机号验证用嘛</p>		
+				</div>
+				<div class="col-md-1">
+                 	<p>验证码</p>
+                 </div>
+                 <div class="col-md-11">
+                 	<input class="form-control" style="max-width: 400px;">
+                 </div>
+                 <div class="col-md-11 col-md-offset-1">
+					<p>给验证码啊</p>		
+				</div>
+			</div>
+		</div>
+		<div class="col-md-12" style="text-align: center;">
+			<button class="btn btn-default">上一步</button>
+			<button class="btn btn-success">完 成</button>
+		</div>
+	</div>
+  </body>
+</html>
