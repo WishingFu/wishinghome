@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Effect</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<script type="text/javascript" src="../publics/canvas-extends.js"></script>
+	<link rel="shortcut icon" href="/favicon.ico" />
+</head>
+<body style="overflow: hidden;padding; 0;margin:0;">
+	<div class="container">
+		<div id="page_1" class="page">
+			<canvas id="transform" style="background-color: black; z-index: 2;"></canvas>
+			<canvas id="bg" style="background-color: black; z-index: 3;
+					background-color: transparent;cursor: crosshair;position: absolute;left: 0;top:0;"></canvas>
+			<canvas id="cg" style="background-color: black; z-index: 1;
+					background-color: transparent; position: absolute;left: 0;top:0;"></canvas>
+		</div>
+	</div>
+	<script type="text/javascript">
+		"use strict"
+		var transform = document.querySelector("#transform");
+		var bg = document.querySelector("#bg");
+		var cg = document.querySelector("#cg");
+		transform.height = window.innerHeight;
+		cg.height = window.innerHeight;
+		bg.height = window.innerHeight;
+		transform.width = window.innerWidth;
+		cg.width = window.innerWidth;
+		bg.width = window.innerWidth;
+		var tc = transform.getContext("2d");
+		var bc = bg.getContext("2d");
+		var cc = cg.getContext("2d");
+	
+		tc.fillStyle = "white";
+		bc.fillStyle = "white";
+		cc.strokeStyle = "rgba(255,255,255,0.1)";
+		tc.shadowColor = "white";
+		bc.shadowColor = "white";
+		tc.shadowBlur = "5";
+		cc.shadowBlur = "2";
+		bc.shadowBlur = "5";
+		tc.strokeStyle = "white";
+		bc.strokeStyle = "white";
+		tc.lineWidth= "1";
+		bc.lineWidth= "2";
+		var sc = 1;
+		var stars = [];
+		var pointNumber = 10000;
+	
+		bg.onmousemove = function(e) {
+			// pointToStars(e.offsetX, e.offsetY);
+		}
+		for(var i = pointNumber; i--;) {
+			var x = Math.random() * transform.width;
+			var y = Math.random() * transform.height;
+			var r = Math.random() * 2;
+			stars.push(new Point(x, y, r));
+		}
+		var en = 0;
+		var sn = 0;
+
+		analysisLines(stars, cc, pointNumber * 16.7 * 100);
+		analysisPoints(stars, bc, pointNumber * 16.7 * 100);
+		function colorfulStars() {
+			tc.clearRect(0, 0, transform.width, transform.height);
+		}
+	</script>
+</body>
+</html>

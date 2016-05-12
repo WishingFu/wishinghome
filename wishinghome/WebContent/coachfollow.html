@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+<title>客户跟踪</title>
+<link rel="stylesheet" href="http://g.alicdn.com/msui/sm/0.6.2/css/sm.min.css">
+<link rel="stylesheet" href="//g.alicdn.com/msui/sm/0.6.2/css/??sm.min.css,sm-extend.min.css">
+</head>
+<style type="text/css">
+	.content{font-size: 14px;}
+	.row{margin:0.5rem 0;}
+	.c-header div{text-align: center;}
+	.col-30{width: 30%;}
+	.col-35{width: 35%;}
+	.col-45{width: 45%!important;}
+	.col-55{width: 55%}
+	.c-header div:FIRST-CHILD {text-align: left;padding-left:0.5rem;width: 30%;}
+	.c-info div:FIRST-CHILD {text-align: left;padding-left:0.5rem;width: 30%;}
+	.c-name{font-weight: bold;}
+	.customer-info{background-color: white;border-top: 1px solid rgba(0,0,0,0.2);
+		border-bottom: 1px solid rgba(0,0,0,0.2);padding-bottom: 0.5rem;}
+	.follow-order{margin-top: -250px!important;}
+	.follow-order .item-content{padding-left: 0;}
+	.follow-order .item-inner{padding-right: .5rem;margin-left: 0.25rem!important;}
+	.follow-order .modal-inner{padding: .75rem 0;}
+	.buttons-tab a{padding:0; font-size: 14px!important;}
+</style>
+<body>
+	<div class="page-group">
+        <div class="page">
+            <!-- 标题栏 -->
+            <header class="bar bar-nav">
+                <a class="icon pull-left">&lt;</a>
+                <h1 class="title">客户跟踪(教练)</h1>
+            </header>
+            <div class="content">
+			    <div class="buttons-tab">
+			      <a class="tab-link active button" href="#intention-customer">意向客户</a>
+			      <a class="tab-link button" href="#deal-customer">成交客户</a>
+			      <a class="tab-link button" href="#expiring-customer">快到期客户</a>
+			      <a class="tab-link button" href="#expired-customer">已到期客户</a>
+			    </div>
+			    <!-- 意向客户 -->
+			    <div class="tabs">
+				    <div id="intention-customer" class="tab active">
+					    <div class="row no-gutter customer-info">
+					      <div class="row no-gutter c-header">
+						      <div class="col-35 c-name">小明</div>
+						      <div class="col-20"><a href="#" onclick="changeStatus()">状态更改</a></div>
+						      <div class="col-15"><a href="#" onclick="openFollow();">跟单</a></div>
+						      <div class="col-15"><a href="#" onclick="openDeal();">成交</a></div>
+						      <div class="col-15"><a href="#">呼叫</a></div>
+						  </div>
+					      <div class="row no-gutter c-info">
+						      <div class="col-20"><input type="radio">男</div>
+						      <div class="col-20"><span>35岁</span></div>
+						      <div class="col-30">签单率<span>85</span>%</div>
+						      <div class="col-30">某某公司CEO</div>
+					      </div>
+					      <div class="row gutter c-address" style="margin:0;">
+					      	<div class="" style="padding-left:0.5rem;">湖南长沙继女村5组</div>
+					      </div>
+					      <div class="row gutter c-contact" style="margin:0;">
+					      	<div class="" style="text-align: right;padding-right:0.5rem;">上次联系时间:昨天晚上8点</div>
+					      </div>
+					    </div>
+					    <div class="row no-gutter customer-info">
+					      <div class="row no-gutter c-header">
+						      <div class="col-35 c-name">小红</div>
+						      <div class="col-20"><a href="#" onclick="changeStatus()">状态更改</a></div>
+						      <div class="col-15"><a href="#" onclick="openFollow();">跟单</a></div>
+						      <div class="col-15"><a href="#" onclick="openDeal();">成交</a></div>
+						      <div class="col-15"><a href="#">呼叫</a></div>
+						  </div>
+					      <div class="row no-gutter c-info">
+						      <div class="col-20"><input type="radio">女</div>
+						      <div class="col-20"><span>35岁</span></div>
+						      <div class="col-30">签单率<span>75</span>%</div>
+						      <div class="col-30">某某公司CEO</div>
+					      </div>
+					      <div class="row gutter c-address" style="margin:0;">
+					      	<div class="" style="padding-left:0.5rem;">湖南长沙继女村5组</div>
+					      </div>
+					      <div class="row gutter c-contact" style="margin:0;">
+					      	<div class="" style="text-align: right;padding-right:0.5rem;">上次联系时间:昨天晚上8点</div>
+					      </div>
+					    </div>
+					    <div class="row no-gutter customer-info">
+					      <div class="row no-gutter c-header">
+						      <div class="col-35 c-name">小黄</div>
+						      <div class="col-20"><a href="#" onclick="changeStatus()">状态更改</a></div>
+						      <div class="col-15"><a href="#" onclick="openFollow();">跟单</a></div>
+						      <div class="col-15"><a href="#" onclick="openDeal();">成交</a></div>
+						      <div class="col-15"><a href="#">呼叫</a></div>
+						  </div>
+					      <div class="row no-gutter c-info">
+						      <div class="col-20"><input type="radio">女</div>
+						      <div class="col-20"><span>20岁</span></div>
+						      <div class="col-30">签单率<span>85</span>%</div>
+						      <div class="col-30">某某公司CEO</div>
+					      </div>
+					      <div class="row gutter c-address" style="margin:0;">
+					      	<div class="" style="padding-left:0.5rem;">湖南长沙继女村5组</div>
+					      </div>
+					      <div class="row gutter c-contact" style="margin:0;">
+					      	<div class="" style="text-align: right;padding-right:0.5rem;">上次联系时间:昨天晚上8点</div>
+					      </div>
+					    </div>
+				    </div>
+				    <!-- 成交客户 -->
+				    <div id="deal-customer" class="tab">
+					    <div class="row no-gutter customer-info">
+					      <div class="row no-gutter c-header">
+						      <div class="col-35 c-name">小张</div>
+						      <div class="col-20"><a href="#" onclick="changeStatus()">状态更改</a></div>
+						      <div class="col-15"><a href="#" onclick="openFollow();">跟单</a></div>
+<!-- 						      <div class="col-15"><a href="#" onclick="openDeal();">成交</a></div> -->
+						      <div class="col-15"><a href="#">呼叫</a></div>
+						  </div>
+					      <div class="row no-gutter c-info">
+						      <div class="col-20"><input type="radio">男</div>
+						      <div class="col-20"><span>35岁</span></div>
+<!-- 						      <div class="col-30">签单率<span>85</span>%</div> -->
+						      <div class="col-30">某某公司CEO</div>
+					      </div>
+					      <div class="row gutter c-address" style="margin:0;">
+					      	<div class="" style="padding-left:0.5rem;">湖南长沙继女村5组</div>
+					      </div>
+					      <div class="row gutter c-contact" style="margin:0;">
+					      	<div class="" style="text-align: right;padding-right:0.5rem;">上次联系时间:昨天晚上12点</div>
+					      </div>
+					    </div>
+					    <div class="row no-gutter customer-info">
+					      <div class="row no-gutter c-header">
+						      <div class="col-35 c-name">小王</div>
+						      <div class="col-20"><a href="#" onclick="changeStatus()">状态更改</a></div>
+						      <div class="col-15"><a href="#" onclick="openFollow();">跟单</a></div>
+<!-- 						      <div class="col-15"><a href="#" onclick="openDeal();">成交</a></div> -->
+						      <div class="col-15"><a href="#">呼叫</a></div>
+						  </div>
+					      <div class="row no-gutter c-info">
+						      <div class="col-20"><input type="radio">女</div>
+						      <div class="col-20"><span>35岁</span></div>
+<!-- 						      <div class="col-30">签单率<span>75</span>%</div> -->
+						      <div class="col-30">某某公司CEO</div>
+					      </div>
+					      <div class="row gutter c-address" style="margin:0;">
+					      	<div class="" style="padding-left:0.5rem;">湖南长沙继女村5组</div>
+					      </div>
+					      <div class="row gutter c-contact" style="margin:0;">
+					      	<div class="" style="text-align: right;padding-right:0.5rem;">上次联系时间:昨天晚上8点</div>
+					      </div>
+					    </div>
+					    <div class="row no-gutter customer-info">
+					      <div class="row no-gutter c-header">
+						      <div class="col-35 c-name">小菜</div>
+						      <div class="col-20"><a href="#" onclick="changeStatus()">状态更改</a></div>
+						      <div class="col-15"><a href="#" onclick="openFollow();">跟单</a></div>
+<!-- 						      <div class="col-15"><a href="#" onclick="openDeal();">成交</a></div> -->
+						      <div class="col-15"><a href="#">呼叫</a></div>
+						  </div>
+					      <div class="row no-gutter c-info">
+						      <div class="col-20"><input type="radio">女</div>
+						      <div class="col-20"><span>20岁</span></div>
+<!-- 						      <div class="col-30">签单率<span>85</span>%</div> -->
+						      <div class="col-30">某某公司CEO</div>
+					      </div>
+					      <div class="row gutter c-address" style="margin:0;">
+					      	<div class="" style="padding-left:0.5rem;">湖南长沙继女村5组</div>
+					      </div>
+					      <div class="row gutter c-contact" style="margin:0;">
+					      	<div class="" style="text-align: right;padding-right:0.5rem;">上次联系时间:昨天晚上8点</div>
+					      </div>
+					    </div>
+				    </div>
+				    <!-- 快到期客户 -->
+				    <div id="expiring-customer" class="tab">
+					    <div class="row no-gutter customer-info">
+					      <div class="row no-gutter c-header">
+						      <div class="col-35 c-name">小灰灰</div>
+						      <div class="col-20"><a href="#" onclick="changeStatus()">状态更改</a></div>
+						      <div class="col-15"><a href="#" onclick="openFollow();">跟单</a></div>
+						      <div class="col-15"><a href="#" onclick="openDeal();">成交</a></div>
+						      <div class="col-15"><a href="#">呼叫</a></div>
+						  </div>
+					      <div class="row no-gutter c-info">
+						      <div class="col-20"><input type="radio">男</div>
+						      <div class="col-20"><span>22岁</span></div>
+						      <div class="col-30">签单率<span>22</span>%</div>
+						      <div class="col-30">某某公司CEO</div>
+					      </div>
+					      <div class="row gutter c-address" style="margin:0;">
+					      	<div class="" style="padding-left:0.5rem;">湖南长沙继女村5组</div>
+					      </div>
+					      <div class="row gutter c-contact" style="margin:0;">
+					      	<div class="" style="text-align: right;padding-right:0.5rem;">上次联系时间:昨天晚上8点</div>
+					      </div>
+					    </div>
+					    <div class="row no-gutter customer-info">
+					      <div class="row no-gutter c-header">
+						      <div class="col-35 c-name">小残</div>
+						      <div class="col-20"><a href="#" onclick="changeStatus()">状态更改</a></div>
+						      <div class="col-15"><a href="#" onclick="openFollow();">跟单</a></div>
+						      <div class="col-15"><a href="#" onclick="openDeal();">成交</a></div>
+						      <div class="col-15"><a href="#">呼叫</a></div>
+						  </div>
+					      <div class="row no-gutter c-info">
+						      <div class="col-20"><input type="radio">女</div>
+						      <div class="col-20"><span>350岁</span></div>
+						      <div class="col-30">签单率<span>55</span>%</div>
+						      <div class="col-30">某某公司CEO</div>
+					      </div>
+					      <div class="row gutter c-address" style="margin:0;">
+					      	<div class="" style="padding-left:0.5rem;">湖南长沙继女村5组</div>
+					      </div>
+					      <div class="row gutter c-contact" style="margin:0;">
+					      	<div class="" style="text-align: right;padding-right:0.5rem;">上次联系时间:昨天晚上8点</div>
+					      </div>
+					    </div>
+					    <div class="row no-gutter customer-info">
+					      <div class="row no-gutter c-header">
+						      <div class="col-35 c-name">小朱</div>
+						      <div class="col-20"><a href="#" onclick="changeStatus()">状态更改</a></div>
+						      <div class="col-15"><a href="#" onclick="openFollow();">跟单</a></div>
+						      <div class="col-15"><a href="#" onclick="openDeal();">成交</a></div>
+						      <div class="col-15"><a href="#">呼叫</a></div>
+						  </div>
+					      <div class="row no-gutter c-info">
+						      <div class="col-20"><input type="radio">女</div>
+						      <div class="col-20"><span>30岁</span></div>
+						      <div class="col-30">签单率<span>58</span>%</div>
+						      <div class="col-30">某某公司CEO</div>
+					      </div>
+					      <div class="row gutter c-address" style="margin:0;">
+					      	<div class="" style="padding-left:0.5rem;">湖南长沙继女村5组</div>
+					      </div>
+					      <div class="row gutter c-contact" style="margin:0;">
+					      	<div class="" style="text-align: right;padding-right:0.5rem;">上次联系时间:昨天晚上8点</div>
+					      </div>
+					    </div>
+				    </div>
+				    <!-- 已到期客户 -->
+				    <div id="expired-customer" class="tab">
+					    <div class="row no-gutter customer-info">
+					      <div class="row no-gutter c-header">
+						      <div class="col-35 c-name">小明</div>
+						      <div class="col-20"><a href="#" onclick="changeStatus()">状态更改</a></div>
+						      <div class="col-15"><a href="#" onclick="openFollow();">跟单</a></div>
+						      <div class="col-15"><a href="#" onclick="openDeal();">成交</a></div>
+						      <div class="col-15"><a href="#">呼叫</a></div>
+						  </div>
+					      <div class="row no-gutter c-info">
+						      <div class="col-20"><input type="radio">男</div>
+						      <div class="col-20"><span>35岁</span></div>
+						      <div class="col-30">签单率<span>85</span>%</div>
+						      <div class="col-30">某某公司CEO</div>
+					      </div>
+					      <div class="row gutter c-address" style="margin:0;">
+					      	<div class="" style="padding-left:0.5rem;">湖南长沙继女村5组</div>
+					      </div>
+					      <div class="row gutter c-contact" style="margin:0;">
+					      	<div class="" style="text-align: right;padding-right:0.5rem;">上次联系时间:昨天晚上8点</div>
+					      </div>
+					    </div>
+					    <div class="row no-gutter customer-info">
+					      <div class="row no-gutter c-header">
+						      <div class="col-35 c-name">小红</div>
+						      <div class="col-20"><a href="#" onclick="changeStatus()">状态更改</a></div>
+						      <div class="col-15"><a href="#" onclick="openFollow();">跟单</a></div>
+						      <div class="col-15"><a href="#" onclick="openDeal();">成交</a></div>
+						      <div class="col-15"><a href="#">呼叫</a></div>
+						  </div>
+					      <div class="row no-gutter c-info">
+						      <div class="col-20"><input type="radio">女</div>
+						      <div class="col-20"><span>35岁</span></div>
+						      <div class="col-30">签单率<span>75</span>%</div>
+						      <div class="col-30">某某公司CEO</div>
+					      </div>
+					      <div class="row gutter c-address" style="margin:0;">
+					      	<div class="" style="padding-left:0.5rem;">湖南长沙继女村5组</div>
+					      </div>
+					      <div class="row gutter c-contact" style="margin:0;">
+					      	<div class="" style="text-align: right;padding-right:0.5rem;">上次联系时间:昨天晚上8点</div>
+					      </div>
+					    </div>
+					    <div class="row no-gutter customer-info">
+					      <div class="row no-gutter c-header">
+						      <div class="col-35 c-name">小黄</div>
+						      <div class="col-20"><a href="#" onclick="changeStatus()">状态更改</a></div>
+						      <div class="col-15"><a href="#" onclick="openFollow();">跟单</a></div>
+						      <div class="col-15"><a href="#" onclick="openDeal();">成交</a></div>
+						      <div class="col-15"><a href="#">呼叫</a></div>
+						  </div>
+					      <div class="row no-gutter c-info">
+						      <div class="col-20"><input type="radio">女</div>
+						      <div class="col-20"><span>20岁</span></div>
+						      <div class="col-30">签单率<span>85</span>%</div>
+						      <div class="col-30">某某公司CEO</div>
+					      </div>
+					      <div class="row gutter c-address" style="margin:0;">
+					      	<div class="" style="padding-left:0.5rem;">湖南长沙继女村5组</div>
+					      </div>
+					      <div class="row gutter c-contact" style="margin:0;">
+					      	<div class="" style="text-align: right;padding-right:0.5rem;">上次联系时间:昨天晚上8点</div>
+					      </div>
+					    </div>
+				    </div>
+			    </div>
+			</div>
+        </div>
+    </div>
+    <!-- 跟单 -->
+    <div id="alert-follow" style="display: none;">
+	    <div class="list-block" style="margin:0.5rem 0;font-size: 14px;">
+	   	  <form>
+		    <ul>
+		      <!-- Text inputs -->
+		      <li>
+		        <div class="item-content">
+		          <div class="item-media"><i class="icon icon-form-name"></i></div>
+		          <div class="item-inner">
+		            <div class="item-title label">登记时间</div>
+		            <div class="item-input">
+		              <input name="follow_time" type="text">
+		            </div>
+		          </div>
+		        </div>
+		      </li>
+		      <li>
+		        <div class="item-content">
+		          <div class="item-media"><i class="icon icon-form-email"></i></div>
+		          <div class="item-inner">
+		            <div class="item-title label">跟单内容</div>
+		            <div class="item-input">
+		              <textarea name="follow_content" rows="3">跟客户打了个电话,客户比较忙,已经约了明天下午两点联系.</textarea>
+		            </div>
+		          </div>
+		        </div>
+		      </li>
+		      <li style="font-weight: bold">下次跟单提醒设置</li>
+		      <li>
+		        <div class="item-content">
+		          <div class="item-media"><i class="icon icon-form-password"></i></div>
+		          <div class="item-inner">
+		            <div class="item-title label">提醒时间</div>
+		            <div class="item-input">
+		              <input name="remind_time" type="text">
+		            </div>
+		          </div>
+		        </div>
+		      </li>
+		      <li>
+		        <div class="item-content">
+		          <div class="item-media"><i class="icon icon-form-gender"></i></div>
+		          <div class="item-inner">
+		            <div class="item-title label">内容</div>
+		            <div class="item-input">
+		              <input name="remind_content" type="text">
+		            </div>
+		          </div>
+		        </div>
+		      </li>
+		      <li>
+		        <div class="item-content">
+		          <div class="item-media"><i class="icon icon-form-gender"></i></div>
+		          <div class="item-inner">
+		            <div class="item-title label">注意事项</div>
+		            <div class="item-input">
+		              <textarea name="remind_attention" rows="3">这个人比较喜欢美女,多聊美女.</textarea>
+		            </div>
+		          </div>
+		        </div>
+		      </li>
+		    </ul>
+		  </form>
+	   </div>
+     </div>
+     <!-- 成交 -->
+     <div id="alert-deal" style="display: none;">
+	    <div class="list-block" style="margin:0.5rem 0;font-size: 14px;">
+	   	  <form>
+		    <ul>
+		      <!-- Text inputs -->
+		      <li>
+		        <div class="item-content">
+		          <div class="item-media"><i class="icon icon-form-name"></i></div>
+		          <div class="item-inner">
+		            <div class="item-title label">产品类型</div>
+		            <div class="item-input">
+		              <select name="deal_type">
+		              	<option>一年卡</option>
+		              	<option>两年卡</option>
+		              </select>
+		            </div>
+		          </div>
+		        </div>
+		      </li>
+		      <li>
+		        <div class="item-content">
+		          <div class="item-inner">
+		            <div class="item-title label">产品价钱</div>
+		            <div class="item-input">
+		              <input name="type_amount" type="text" value="5000">
+<!-- 		              <span>元</span> -->
+		            </div>
+		          </div>
+		        </div>
+		      </li>
+		      <li>
+		        <div class="item-content">
+		          <div class="item-media"><i class="icon icon-form-password"></i></div>
+		          <div class="item-inner">
+		            <div class="item-title label">成交价钱</div>
+		            <div class="item-input">
+		              <input name="deal-amount" type="text" value="4000">
+<!-- 		              <span>元</span> -->
+		            </div>
+		          </div>
+		        </div>
+		      </li>
+		      <li>
+		        <div class="item-content">
+		          <div class="item-media"><i class="icon icon-form-gender"></i></div>
+		          <div class="item-inner">
+		            <div class="item-title label">开卡类型</div>
+		            <div class="item-input">
+		              <div style="text-align: left">
+		              	<div><input name="when_enable" type="radio" value="now">即时生效</div>
+		              	<div><input name="when_enable" type="radio" value="first_use">第一次刷卡</div>
+		              	<div><input id="special_enable" name="when_enable" type="radio" value="special">指定日期</div>
+		              	<div><input name="when_enable" type="radio" value="unite">统一开卡</div>
+		              </div>
+		            </div>
+		          </div>
+		        </div>
+		      </li>
+		      <li class="enable_time" style="display: none">
+		        <div class="item-content">
+		          <div class="item-media"><i class="icon icon-form-gender"></i></div>
+		          <div class="item-inner">
+		            <div class="item-title label">开卡日期</div>
+		            <div class="item-input">
+		              <input name="enable_time" type="text">
+		            </div>
+		          </div>
+		        </div>
+		      </li>
+		      <li>
+		        <div class="item-content">
+		          <div class="item-media"><i class="icon icon-form-gender"></i></div>
+		          <div class="item-inner">
+		            <div class="item-title label">销售说明</div>
+		            <div class="item-input">
+		              <input name="deal_info" type="text" value="答应送客户一辆小车,谢谢.">
+		            </div>
+		          </div>
+		        </div>
+		      </li>
+		      <li>
+		        <div class="item-content">
+		          <div class="item-media"><i class="icon icon-form-gender"></i></div>
+		          <div class="item-inner">
+		            <div class="item-title label">备注</div>
+		            <div class="item-input">
+		              <input name="deal_note" type="text" value="这个人比较喜欢美女,多聊美女.">
+		            </div>
+		          </div>
+		        </div>
+		      </li>
+		    </ul>
+		  </form>
+	   </div>
+     </div>
+     
+	<script type='text/javascript' src='http://g.alicdn.com/sj/lib/zepto/zepto.min.js' charset='utf-8'></script>
+	<script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.6.2/js/sm.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='http://g.alicdn.com/msui/sm/0.6.2/js/??sm.min.js,sm-extend.min.js' charset='utf-8'></script>
+    <script type="text/javascript">
+    	function openFollow() {
+    		$.modal({
+    			title: "跟单",
+    			text: $("#alert-follow").html(),
+    			extraClass: "follow-order",
+    			buttons: [{
+    				text: '取消',
+    		          onClick: function() {
+    		        	  
+    		          }
+    			}, {
+    				text: '确定',
+    		          onClick: function() {
+    		        	  
+    		          }
+    			}]
+    		});
+    		
+    		initDatetimePicker();
+    	}
+    	function openDeal() {
+    		$.modal({
+    			title: "成交",
+    			text: $("#alert-deal").html(),
+    			extraClass: "follow-order",
+    			buttons: [{
+    				text: '取消',
+    		          onClick: function() {
+    		        	  
+    		          }
+    			}, {
+    				text: '确定',
+    		          onClick: function() {
+    		        	  
+    		          }
+    			}]
+    		});
+    		
+    		initDatetimePicker();
+    		$("input[name='when_enable']").on("change", function() {
+    			if($("input[name='when_enable']:checked").val() === "special") {
+    				$(".enable_time").css("display", "block");
+    			} else {
+    				$(".enable_time").css("display", "none");
+    			}
+    		})
+    	}
+    	
+    	$(document).ready(function() {
+    		
+    	}) 
+    	
+    	function changeStatus() {
+    		var buttons1 = [
+               {
+                 text: '请选择',
+                 label: true
+               },
+               {
+                 text: '意向客户',
+                 onClick: function() {
+                   $.alert("修改为意向客户");
+                 }
+               },
+               {
+                 text: '成交客户',
+                 onClick: function() {
+                   $.alert("修改为成交客户");
+                 }
+               },
+               {
+            	 text: '移至公共池',
+                 onClick: function() {
+                   $.confirm("确定移交至公共池吗?", function() {
+                	   $.toast("已移交至公共池!");
+                   });
+                 }
+               }
+             ];
+             var buttons2 = [
+               {
+                 text: '取消',
+                 bg: 'danger',
+               }
+             ];
+		    var groups = [buttons1, buttons2];
+		    $.actions(groups);
+    	}
+    	
+    	function initDatetimePicker() {
+    		$("input[name$='_time']").each(function() {
+    			$(this).datetimePicker({
+	    			value: getTime(new Date())
+	    		});
+    		})
+    	};
+    	
+    	function getTime(date) {
+    		var time = [];
+    		time.push(date.getFullYear());
+    		if(date.getMonth() < 9) {
+    			var month = '0' + (date.getMonth() + 1);
+    			time.push(month);
+    		} else {
+    			time.push(date.getMonth() + 1);
+    		}
+    		if(date.getDate() < 10) {
+    			var day = '0' + (date.getDate());
+    			time.push(day);
+    		} else {
+    			time.push(date.getDate());
+    		}
+    		time.push(date.getHours());
+    		if(date.getMinutes() < 10) {
+    			var minute = '0' + (date.getMinutes());
+    			time.push(minute);
+    		} else {
+    			time.push(date.getMinutes());
+    		}
+    		return time
+    	}
+    </script>
+</body>
+</html>

@@ -24,15 +24,16 @@ function initEaseWords() {
 
 var ws;
 var w;
+var di;
 function easeWords() {
 	ws = $(".ease-content .ease-word");
 	w = 0;
-	setInterval(function(){
+	di = setInterval(function(){
 		if(w < ws.length) {
-			$(ws[w]).css("animation", "wordEase 1s ease-in");
-			$(ws[w]).css("opacity", "1");
+			$(ws[w]).addClass("word-easing");
 			w++;
-			// setTimeout(clearEase($(ws[w - 1])), 120 * w + 1000);	
+		} else {
+			clearInterval(di);
 		}
 	}, 200);
 }

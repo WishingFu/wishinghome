@@ -142,3 +142,7 @@ article {
 	/*width: 74%;*/
 	writing-mode: vertical-rl;
 }
+.word-easing {
+	animation: wordEase 1s ease-in;
+	opacity: 1!important;
+}
