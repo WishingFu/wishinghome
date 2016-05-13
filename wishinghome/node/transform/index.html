@@ -34,7 +34,8 @@
 	
 		tc.fillStyle = "white";
 		bc.fillStyle = "white";
-		cc.strokeStyle = "rgba(255,255,255,0.1)";
+		cc.strokeStyle = "rgba(255,255,255,1)";
+		cc.fillStyle= "black";
 		tc.shadowColor = "white";
 		bc.shadowColor = "white";
 		tc.shadowBlur = "5";
@@ -46,24 +47,65 @@
 		bc.lineWidth= "2";
 		var sc = 1;
 		var stars = [];
-		var pointNumber = 10000;
+		var pan = [];
+		var pany = []
+		var pointNumber = 1000;
+		var mnp = new Point();
 	
-		bg.onmousemove = function(e) {
-			// pointToStars(e.offsetX, e.offsetY);
+		// bg.onmousemove = function(e) {
+			
+		// }
+
+		bg.onclick = function(e) {
+			mnp = getNearestPoint(e.offsetX, e.offsetY);
+			cc.beginPath();
+			cc.moveTo(mnp.x, mnp.y);
+			cc.arc(mnp.x, mnp.y, 10, 0, Math.PI * 2, false);
+			cc.closePath();
+			cc.fill();
 		}
+
 		for(var i = pointNumber; i--;) {
 			var x = Math.random() * transform.width;
 			var y = Math.random() * transform.height;
 			var r = Math.random() * 2;
 			stars.push(new Point(x, y, r));
 		}
-		var en = 0;
-		var sn = 0;
-
-		analysisLines(stars, cc, pointNumber * 16.7 * 100);
-		analysisPoints(stars, bc, pointNumber * 16.7 * 100);
-		function colorfulStars() {
-			tc.clearRect(0, 0, transform.width, transform.height);
+		for(var i = 0; i - 10; i++) {
+			var panx = [];
+			var panyy = [];
+			for (var j = 0; j - 10; j++) {
+				var p = new Point(300 + j * 60, 100 + i * 60, 2);
+				var py = new Point(300 + i * 60, 100 + j * 60, 2);
+				panx.push(p);
+				panyy.push(py);
+			}
+			pan.push(panx);
+			pany.push(panyy);
+		}
+		// analysisLines(stars, cc, pointNumber * 16.7 * 20);
+		// analysisPoints(stars, bc, pointNumber * 16.7 * 20);
+		// for(var i in pany) {
+		// 	pany[i] = pany[i].reverse();
+		// }
+		// pany = pany.reverse();
+		// analysisLinesGroup(pan, cc, 400 * 16.7);
+		// analysisPointsGroup(pan, bc, 400 * 16.7);
+		// analysisPointsGroup(pany, bc, 400 * 16.7);
+		// analysisLinesGroup(pany, cc, 400 * 16.7);
+		analysisPolygon(new Point(800,400), 15, 200, true, 0, cc);
+		function getNearestPoint(x, y) {
+			var d = 999999;
+			var np;
+			for(var i in pan) {
+				for(var j in pan[i]) {
+					var pd = Math.sqrt((Math.pow(pan[i][j].x - x, 2)) + (Math.pow(pan[i][j].y - y, 2)));
+					if(pd < d) {
+						d = pd; np = pan[i][j];
+					}
+				}
+			}
+			return np;
 		}
 	</script>
 </body>
