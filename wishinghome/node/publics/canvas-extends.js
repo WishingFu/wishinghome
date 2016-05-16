@@ -75,17 +75,18 @@ function analysisLine(a, b, c, ms) {
 	var lineInter = setInterval(function() {
 		if((dx > 0 && nx >= bx) || (dx < 0 && nx <= bx) || (dy > 0 && ny >= by) || (dy < 0 && ny <= by)) {
 			clearInterval(lineInter);
+			c.restore();
 		}
-		cc.beginPath();
-		cc.moveTo(nx, ny);
+		c.beginPath();
+		c.moveTo(nx, ny);
 		if((dx > 0 && (nx + px > bx)) || (dx < 0 && (nx + px < bx)) || (dy > 0 && (ny + py > by)) || (dy < 0 && (ny + py < by))) {
 			nx = bx; ny = by;
 		} else {
 			ny = ny + py; nx = nx + px;
 		}							
-		cc.lineTo(nx, ny);
-		cc.closePath();
-		cc.stroke();
+		c.lineTo(nx, ny);
+		c.closePath();
+		c.stroke();
 	}, 16.7);
 }
 /**
@@ -99,6 +100,7 @@ function analysisPoints(points, bc, ms) {
 	var pInter = setInterval(function() {
 		if(sn >= points.length) {
 			clearInterval(pInter);
+			bc.restore();
 			return;
 		}
 		bc.beginPath();
@@ -108,6 +110,39 @@ function analysisPoints(points, bc, ms) {
 		bc.fill();
 		sn++;
 	}, Math.floor(ms / points.length));
+}
+/**
+ * 
+ * @param point 圆心
+ * @param r 半径
+ * @param type 顺时针或者逆时针方向画圆,false逆,true顺
+ * @param c canvas上下文
+ * @param ms 绘制时间 建议 <b>16.7</b> 的倍数
+ * @param random 是否从一个随机的起始点开始画圆,这个起点与绘制时间有关
+ */
+function analysisCircle(point, r, type, c, ms, random) {
+	var n = ms / 16.7;
+	var randomN = Math.random() * n;
+	if(!random) randomN = 0;
+	var cn = 0;
+	var ptheta = Math.PI * 2 / n;
+	var cInter = setInterval(function() {
+		if(Math.abs(cn) >= n) {
+			clearInterval(cInter);
+			return;
+		}
+		c.save();
+		c.beginPath();
+		if(type) {
+			c.arc(point.x, point.y, r, (cn + randomN) * ptheta, (cn + randomN - 1) * ptheta, type);
+			cn--;
+		} else {
+			c.arc(point.x, point.y, r, (cn + randomN) * ptheta, (cn + randomN + 1) * ptheta, type);
+			cn++;
+		}
+		c.stroke();
+		c.restore();
+	}, 16.7);
 }
 /**
  * 清除canvas的所有内容
@@ -124,23 +159,37 @@ function clearCanvas(c) {
  * @param theta 多变形旋转角度
  * @param c canvas上下文
  */
-function analysisPolygon(p, n, r, type, theta, c) {
+function analysisPolygon(p, n, r, type, theta, c, ms) {
 	if(n < 3) {
 		throw new Error("非法参数n-->多边形边数!需大于等于3.")
+	}
+	if(!theta) {
+		theta = 0;
 	}
 	n = Math.floor(n);
 	var pth = Math.PI * 2 / n;
 	if(type) {
-		c.save();
-		c.translate(p.x, p.y);
-		c.rotate(theta);
-		c.moveTo(r, 0);
+		var points = [];
 		for(var i = 0; i - n; i++) {
-			c.lineTo(r * Math.cos(i * pth), r * Math.sin(i * pth));
+			points.push({x:r * Math.cos(i * pth), y:r * Math.sin(i * pth)});
 		}
-		c.lineTo(r, 0);
-		c.closePath();
-		c.stroke();
-		c.restore();
+		points.push({x:r, y:0});
+		for(var i in points) {
+			points[i] = {x : Math.cos(theta) * points[i].x - Math.sin(theta) * points[i].y + p.x,
+						 y : Math.cos(theta) * points[i].y + Math.sin(theta) * points[i].x + p.y};
+		}
+		analysisLines(points, c, ms || 16.7 * 100);
+	} else {
+		r = r / Math.cos(Math.PI / n);
+		var points = [];
+		for(var i = 0; i - n; i++) {
+			points.push({x:r * Math.cos(i * pth), y:r * Math.sin(i * pth)});
+		}
+		points.push({x:r, y:0});
+		for(var i in points) {
+			points[i] = {x : Math.cos(theta) * points[i].x - Math.sin(theta) * points[i].y + p.x,
+						 y : Math.cos(theta) * points[i].y + Math.sin(theta) * points[i].x + p.y};
+		}
+		analysisLines(points, c, ms || 16.7 * 100);
 	}
 }

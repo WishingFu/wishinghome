@@ -103,3 +103,28 @@ h3 {
 	box-shadow: 3px 4px 5px red;
 	transform: scale(1.02);
 }
+
+@keyframes dio {
+	0% {
+		transform: rotateX(0deg);
+	}
+	100% {
+		transform: rotateX(90deg);
+	}
+}
+@keyframes dit {
+	0% {
+		transform: rotateX(90deg);
+	}
+	100% {
+		transform: rotateX(0deg);
+	}
+}
+@keyframes div3 {
+	0% {
+		transform: rotateY(0deg);
+	}
+	100% {
+		transform: rotateY(90deg);
+	}
+}

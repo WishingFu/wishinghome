@@ -34,9 +34,10 @@
 	
 		tc.fillStyle = "white";
 		bc.fillStyle = "white";
-		cc.strokeStyle = "rgba(255,255,255,1)";
-		cc.fillStyle= "black";
+		cc.strokeStyle = "rgba(255,255,255,0.1)";
+		cc.fillStyle= "white";
 		tc.shadowColor = "white";
+		cc.shadowColor = "white";
 		bc.shadowColor = "white";
 		tc.shadowBlur = "5";
 		cc.shadowBlur = "2";
@@ -56,14 +57,14 @@
 			
 		// }
 
-		bg.onclick = function(e) {
-			mnp = getNearestPoint(e.offsetX, e.offsetY);
-			cc.beginPath();
-			cc.moveTo(mnp.x, mnp.y);
-			cc.arc(mnp.x, mnp.y, 10, 0, Math.PI * 2, false);
-			cc.closePath();
-			cc.fill();
-		}
+		// bg.onclick = function(e) {
+		// 	mnp = getNearestPoint(e.offsetX, e.offsetY);
+		// 	cc.beginPath();
+		// 	cc.moveTo(mnp.x, mnp.y);
+		// 	cc.arc(mnp.x, mnp.y, 10, 0, Math.PI * 2, false);
+		// 	cc.closePath();
+		// 	cc.fill();
+		// }
 
 		for(var i = pointNumber; i--;) {
 			var x = Math.random() * transform.width;
@@ -83,17 +84,21 @@
 			pan.push(panx);
 			pany.push(panyy);
 		}
-		// analysisLines(stars, cc, pointNumber * 16.7 * 20);
-		// analysisPoints(stars, bc, pointNumber * 16.7 * 20);
-		// for(var i in pany) {
-		// 	pany[i] = pany[i].reverse();
-		// }
-		// pany = pany.reverse();
+		// analysisLines(stars, cc, pointNumber * 16.7 * 10);
+		// analysisPoints(stars, bc, pointNumber * 16.7 * 10);
+		for(var i in pany) {
+			pany[i] = pany[i].reverse();
+		}
+		pany = pany.reverse();
 		// analysisLinesGroup(pan, cc, 400 * 16.7);
 		// analysisPointsGroup(pan, bc, 400 * 16.7);
 		// analysisPointsGroup(pany, bc, 400 * 16.7);
 		// analysisLinesGroup(pany, cc, 400 * 16.7);
-		analysisPolygon(new Point(800,400), 15, 200, true, 0, cc);
+		analysisPolygon(new Point(800,300), 3, 200, true, Math.PI / 6, bc, 10000);
+		analysisPolygon(new Point(800,300), 3, 200, true, Math.PI + Math.PI / 6, bc, 10000);
+		// analysisPolygon(new Point(800,300), 6, 200, true, Math.PI / 6, bc);
+		analysisCircle(new Point(800,300), 200, false, bc, 10000, true);
+		analysisCircle(new Point(800,300), 240, true, bc, 10000, true);
 		function getNearestPoint(x, y) {
 			var d = 999999;
 			var np;
