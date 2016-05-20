@@ -21,9 +21,9 @@ function analysisLinesGroup(pList, cc, ms) {
 			clearInterval(plInter);
 			return;
 		}
-		analysisLines(pList[pn], cc, Math.floor(ms / pList.length));
+		analysisLines(pList[pn], cc, ms / pList.length);
 		pn = pn + 1;
-	}, Math.ceil(ms / pList.length));
+	}, ms / pList.length);
 }
 /**
  * 调用analysisPoints完成多组点的绘制<br>
@@ -40,9 +40,9 @@ function analysisPointsGroup(pList, cc, ms) {
 			clearInterval(plInter);
 			return;
 		}
-		analysisPoints(pList[pn], cc, Math.floor(ms / pList.length));
+		analysisPoints(pList[pn], cc, ms / pList.length);
 		pn = pn + 1;
-	}, Math.ceil(ms / pList.length));
+	}, ms / pList.length);
 }
 /**
  * 调用analysisLine完成一组连续直线的绘制
@@ -109,7 +109,7 @@ function analysisPoints(points, bc, ms) {
 		bc.closePath();
 		bc.fill();
 		sn++;
-	}, Math.floor(ms / points.length));
+	}, ms / points.length);
 }
 /**
  * 
@@ -160,36 +160,19 @@ function clearCanvas(c) {
  * @param c canvas上下文
  */
 function analysisPolygon(p, n, r, type, theta, c, ms) {
-	if(n < 3) {
-		throw new Error("非法参数n-->多边形边数!需大于等于3.")
-	}
-	if(!theta) {
-		theta = 0;
-	}
+	if(n < 3) throw new Error("非法参数n-->多边形边数!需大于等于3.");
+	if(!theta) theta = 0;
 	n = Math.floor(n);
+	if(!type) r = r / Math.cos(Math.PI / n);
 	var pth = Math.PI * 2 / n;
-	if(type) {
-		var points = [];
-		for(var i = 0; i - n; i++) {
-			points.push({x:r * Math.cos(i * pth), y:r * Math.sin(i * pth)});
-		}
-		points.push({x:r, y:0});
-		for(var i in points) {
-			points[i] = {x : Math.cos(theta) * points[i].x - Math.sin(theta) * points[i].y + p.x,
-						 y : Math.cos(theta) * points[i].y + Math.sin(theta) * points[i].x + p.y};
-		}
-		analysisLines(points, c, ms || 16.7 * 100);
-	} else {
-		r = r / Math.cos(Math.PI / n);
-		var points = [];
-		for(var i = 0; i - n; i++) {
-			points.push({x:r * Math.cos(i * pth), y:r * Math.sin(i * pth)});
-		}
-		points.push({x:r, y:0});
-		for(var i in points) {
-			points[i] = {x : Math.cos(theta) * points[i].x - Math.sin(theta) * points[i].y + p.x,
-						 y : Math.cos(theta) * points[i].y + Math.sin(theta) * points[i].x + p.y};
-		}
-		analysisLines(points, c, ms || 16.7 * 100);
+	var points = [];
+	for(var i = 0; i - n; i++) {
+		points.push({x:r * Math.cos(i * pth), y:r * Math.sin(i * pth)});
 	}
+	points.push({x:r, y:0});
+	for(var i in points) {
+		points[i] = {x : Math.cos(theta) * points[i].x - Math.sin(theta) * points[i].y + p.x,
+					 y : Math.cos(theta) * points[i].y + Math.sin(theta) * points[i].x + p.y};
+	}
+	analysisLines(points, c, ms || 16.7 * 100);
 }

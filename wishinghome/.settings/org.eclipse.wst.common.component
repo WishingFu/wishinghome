@@ -2,6 +2,8 @@
     <wb-module deploy-name="wishinghome">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/rx_source"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/rx_test"/>
         <property name="context-root" value="wishinghome"/>
         <property name="java-output-path" value="/wishinghome/build/classes"/>
     </wb-module>

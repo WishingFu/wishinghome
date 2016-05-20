@@ -38,12 +38,12 @@
 		cc.fillStyle= "white";
 		tc.shadowColor = "white";
 		cc.shadowColor = "white";
-		bc.shadowColor = "white";
+		bc.shadowColor = "#B3F607";
 		tc.shadowBlur = "5";
 		cc.shadowBlur = "2";
 		bc.shadowBlur = "5";
 		tc.strokeStyle = "white";
-		bc.strokeStyle = "white";
+		bc.strokeStyle = "#B3F607";
 		tc.lineWidth= "1";
 		bc.lineWidth= "2";
 		var sc = 1;
@@ -52,6 +52,7 @@
 		var pany = []
 		var pointNumber = 1000;
 		var mnp = new Point();
+		var circles = [];
 	
 		// bg.onmousemove = function(e) {
 			
@@ -84,6 +85,13 @@
 			pan.push(panx);
 			pany.push(panyy);
 		}
+		for(var i = 0; i - 50; i ++) {
+			for(var j = 0; j - 20; j++) {
+				var x = 200 + i * 30;
+				var y = 200 + j * 30;
+				circles.push(new Point(x, y));
+			}
+		}
 		// analysisLines(stars, cc, pointNumber * 16.7 * 10);
 		// analysisPoints(stars, bc, pointNumber * 16.7 * 10);
 		for(var i in pany) {
@@ -94,11 +102,24 @@
 		// analysisPointsGroup(pan, bc, 400 * 16.7);
 		// analysisPointsGroup(pany, bc, 400 * 16.7);
 		// analysisLinesGroup(pany, cc, 400 * 16.7);
-		analysisPolygon(new Point(800,300), 3, 200, true, Math.PI / 6, bc, 10000);
-		analysisPolygon(new Point(800,300), 3, 200, true, Math.PI + Math.PI / 6, bc, 10000);
-		// analysisPolygon(new Point(800,300), 6, 200, true, Math.PI / 6, bc);
-		analysisCircle(new Point(800,300), 200, false, bc, 10000, true);
-		analysisCircle(new Point(800,300), 240, true, bc, 10000, true);
+			// analysisPolygon(new Point(800,300), 6, 200, true, Math.PI / 6, bc);
+			// analysisPolygon(new Point(800,300), 3, 200, true, Math.PI / 6, bc, 4000);
+			// analysisPolygon(new Point(800,300), 3, 200, true, Math.PI + Math.PI / 6, bc, 4000);
+			// analysisPolygon(new Point(800,300), 3, 113, true, 0, bc, 5000);
+			// analysisPolygon(new Point(800,300), 3, 113, true, Math.PI, bc, 5000);
+			// analysisPolygon(new Point(800,300), 3, 100, true, Math.PI / 6, bc, 6000);
+			// analysisPolygon(new Point(800,300), 3, 100, true, Math.PI + Math.PI / 6, bc, 6000);
+			// analysisCircle(new Point(800,300), 200, false, bc, 3000, true);
+			// analysisCircle(new Point(800,300), 240, true, bc, 3000, true);
+		var ci = 0;
+		var cInter = setInterval(function(){
+			// bc.strokeStyle = "rgba("+ Math.round(Math.random() * 255) +","+Math.round(Math.random() * 255)+","+Math.round(Math.random() * 255)+",1)";
+			analysisCircle(circles[ci], 40 ,false, bc, 600, true);
+			ci++;
+		}, 50);
+			
+
+
 		function getNearestPoint(x, y) {
 			var d = 999999;
 			var np;
