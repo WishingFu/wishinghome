@@ -1,4 +1,5 @@
 "use strict"
+var multipleMode = 1;
 /**
  * 点的构造函数
  */
@@ -6,7 +7,45 @@ function Point(x, y, r) {
 	this.x = x;
 	this.y = y;
 	this.r = r;
+	this.st = "black";
+	this.ft = "black";
+	this.blur = "0";
+	this.alpha = "1";
 	return this;
+}
+/**
+ * 
+ * @param p
+ * @returns {___anonymous286_287}
+ */
+function copyPoint(p) {
+	var np = new Point();
+	np.x = p.x;
+	np.y = p.y;
+	np.r = p.r;
+	np.st = p.st;
+	np.ft = p.ft;
+	np.blur = p.blur;
+	np.alpha = p.alpha;
+	return np;
+}
+/**
+ * 获取canvas上下文
+ * @param s
+ */
+function getContext(s) {
+	return document.querySelector(s).getContext("2d");
+}
+/**
+ * 应用点的样式信息
+ * @param c
+ * @param p
+ */
+function applyStyles(c,p) {
+	c.strokeStyle = p.st || "black";
+	c.fillStyle = p.ft || "black";
+	c.globalAlpha = p.alpha || 1;
+	c.shadowBlur = p.blur || 0;
 }
 /**
  * 调用analysisLines完成多组连续直线的绘制
@@ -103,6 +142,8 @@ function analysisPoints(points, bc, ms) {
 			bc.restore();
 			return;
 		}
+		if(multipleMode) applyStyles(bc,points[sn]);
+		
 		bc.beginPath();
 		bc.moveTo(points[sn].x, points[sn].y);
 		bc.arc(points[sn].x, points[sn].y, points[sn].r, 0, Math.PI * 2, false);
@@ -175,4 +216,60 @@ function analysisPolygon(p, n, r, type, theta, c, ms) {
 					 y : Math.cos(theta) * points[i].y + Math.sin(theta) * points[i].x + p.y};
 	}
 	analysisLines(points, c, ms || 16.7 * 100);
+}
+/**
+ * 
+ * @param point
+ * @param r
+ * @param type
+ * @param random
+ */
+function getCirclePointsArray(point, r, n, type, random) {
+	var randomN = Math.random() * n;
+	if(!random) randomN = 0;
+	var cn = 0;
+	var ptheta = Math.PI * 2 / n;
+	var pa = [];
+	if(type) {
+		for(var cn = n; cn > 0; cn--) {
+			var p = new Point(point.x + r*Math.cos((cn + randomN) * ptheta), point.y + r*Math.sin((cn + randomN) * ptheta));
+			pa.push(p);
+		}
+	} else {
+		for(var cn = 0; cn < n; cn++) {
+			var p = new Point(point.x + r*Math.cos((cn + randomN) * ptheta), point.y + r*Math.sin((cn + randomN) * ptheta));
+			pa.push(p);
+		}
+	}
+	return pa;	
+}
+/**
+ * 
+ * @param pg
+ * @param c
+ */
+function autoAnimation(pg, c) {
+	var f = pg.length;
+	var fn = 0;
+	var finter = setInterval(function() {
+		if(fn >= f) {
+			clearInterval(finter);
+			return;
+		}
+		clearCanvas(c);
+		drawPoints(pg[fn],c);
+		fn++;
+	}, 16.7); 
+}
+function drawPoints(pa, c) {
+	c.save();
+	for(var i = pa.length; i--;) {
+		if(multipleMode) applyStyles(c,pa[i]);
+		c.beginPath();
+		c.moveTo(pa[i].x,pa[i].y);
+		c.arc(pa[i].x,pa[i].y,pa[i].r,0,Math.PI*2,false);
+		c.closePath();
+		c.fill();
+	}
+	c.restore();
 }

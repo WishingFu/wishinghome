@@ -92,40 +92,40 @@
 				circles.push(new Point(x, y));
 			}
 		}
-		// analysisLines(stars, cc, pointNumber * 16.7 * 10);
-		// analysisPoints(stars, bc, pointNumber * 16.7 * 10);
+		analysisLines(stars, cc, pointNumber * 16.7 * 10);
+		analysisPoints(stars, bc, pointNumber * 16.7 * 10);
 		for(var i in pany) {
 			pany[i] = pany[i].reverse();
 		}
-		pany = pany.reverse();
 		// analysisLinesGroup(pan, cc, 400 * 16.7);
 		// analysisPointsGroup(pan, bc, 400 * 16.7);
 		// analysisPointsGroup(pany, bc, 400 * 16.7);
 		// analysisLinesGroup(pany, cc, 400 * 16.7);
-			// analysisPolygon(new Point(800,300), 6, 200, true, Math.PI / 6, bc);
-			// analysisPolygon(new Point(800,300), 3, 200, true, Math.PI / 6, bc, 4000);
-			// analysisPolygon(new Point(800,300), 3, 200, true, Math.PI + Math.PI / 6, bc, 4000);
-			// analysisPolygon(new Point(800,300), 3, 113, true, 0, bc, 5000);
-			// analysisPolygon(new Point(800,300), 3, 113, true, Math.PI, bc, 5000);
-			// analysisPolygon(new Point(800,300), 3, 100, true, Math.PI / 6, bc, 6000);
-			// analysisPolygon(new Point(800,300), 3, 100, true, Math.PI + Math.PI / 6, bc, 6000);
-			// analysisCircle(new Point(800,300), 200, false, bc, 3000, true);
-			// analysisCircle(new Point(800,300), 240, true, bc, 3000, true);
-		var ci = 0;
-		var cInter = setInterval(function(){
-			// bc.strokeStyle = "rgba("+ Math.round(Math.random() * 255) +","+Math.round(Math.random() * 255)+","+Math.round(Math.random() * 255)+",1)";
-			analysisCircle(circles[ci], 40 ,false, bc, 600, true);
-			ci++;
-		}, 50);
-			
-
+			// analysisPolygon(new Point(800,300), 6, 200, true, Math.PI / 6, bc, 1);
+			// analysisPolygon(new Point(800,300), 3, 200, true, Math.PI / 6, bc, 1);
+			// analysisPolygon(new Point(800,300), 3, 200, true, Math.PI + Math.PI / 6, bc, 1);
+			// analysisPolygon(new Point(800,300), 3, 113, true, 0, bc, 1);
+			// analysisPolygon(new Point(800,300), 3, 113, true, Math.PI, bc, 1);
+			// analysisPolygon(new Point(800,300), 6, 173, true, 0, bc, 1);
+			// analysisPolygon(new Point(800,300), 3, 173, true, 0, bc, 1);
+			// analysisPolygon(new Point(800,300), 3, 173, true, Math.PI, bc, 1);
+			// analysisPolygon(new Point(800,300), 3, 100, true, Math.PI / 6, bc, 1);
+			// analysisPolygon(new Point(800,300), 3, 100, true, Math.PI + Math.PI / 6, bc, 1);
+			// analysisCircle(new Point(800,300), 200, false, bc, 1, true);
+			// analysisCircle(new Point(800,300), 240, true, bc, 1, true);
+		// var ci = 0;
+		// var cInter = setInterval(function(){
+		// 	// bc.strokeStyle = "rgba("+ Math.round(Math.random() * 255) +","+Math.round(Math.random() * 255)+","+Math.round(Math.random() * 255)+",1)";
+		// 	analysisCircle(circles[ci], 40 ,false, bc, 600, true);
+		// 	ci++;
+		// }, 50);
 
 		function getNearestPoint(x, y) {
 			var d = 999999;
 			var np;
 			for(var i in pan) {
 				for(var j in pan[i]) {
-					var pd = Math.sqrt((Math.pow(pan[i][j].x - x, 2)) + (Math.pow(pan[i][j].y - y, 2)));
+					var pd = Math.abs(pan[i][j].x - x) + Math.abs(pan[i][j].y - y);
 					if(pd < d) {
 						d = pd; np = pan[i][j];
 					}

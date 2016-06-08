@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script type="text/javascript" src="../publics/canvas-extends.js"></script>
+<title>Particles</title>
+</head>
+<body style="margin:0;padding:0;">
+	<canvas id="particles" style="background-color:black;"></canvas>
+	<script type="text/javascript">
+		// shakeBall();
+		gravitationTest();
+		var canvas = document.querySelector("#particles");
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		function shakeBall() {
+			var c = getContext("#particles");
+			var pNumber = 30;
+			var aArray = getCirclePointsArray(new Point(500,350), 100, pNumber, false, true);
+			var aa = [aArray];
+			for(var i = 0; i < aArray.length; i++) {
+				var p = aArray[i];
+				p.r = 5;
+				p.st = "rgb(192, 5, 239)";
+				p.ft = "rgb("+Math.round(Math.random() * 255) +", "+Math.round(Math.random() * 255) +", "+Math.round(Math.random() * 255) +")";
+				p.alpha = .7;
+				p.blur = 30;
+			}
+			for(var i = 1; i < 1000; i++) {
+				var pa = [];
+				for(var j = 0; j < aa[i-1].length; j++) {
+					var np = copyPoint(aa[i-1][j]);
+					np.x = 1 - Math.random() * 2 + np.x;   
+					np.y = 1 - Math.random() * 2 + np.y;
+					pa.push(np);
+				}
+				aa.push(pa);
+			}
+			// analysisPoints(aArray, c, pNumber * 16.7 / 2);
+			autoAnimation(aa, c);
+		}
+
+		/**
+		 *	引力规律遵循 f(x) = lg x;
+		 */
+		function gravitationTest() {
+			var c = getContext("#particles");
+			var pa = [];
+			var bn = 500;
+			// random points
+			// for(var i = 0; i < bn; i++) {
+			// 	var p = new Point(Math.random() * window.innerWidth, Math.random() * window.innerHeight);
+			// 	p.r = 4;
+			// 	p.ft = "rgb("+Math.round(Math.random() * 255) +", "+Math.round(Math.random() * 255) +", "+Math.round(Math.random() * 255) +")";
+			// 	p.alpha = 1;
+			// 	p.blur = 30;
+			// 	p.fx = 0;
+			// 	p.fy = 0;
+			// 	p.vx = 0;
+			// 	p.vy = 0;
+			// 	pa.push(p);
+			// }
+			// regular points
+			for(var i = 20; i--;) {
+				for(var j = 10; j--;) {
+					var p = new Point(300 + i * 50, 200 + 50 * j);
+					p.r = 4;
+					p.ft = "rgb("+Math.round(Math.random() * 255) +", "+Math.round(Math.random() * 255) +", "+Math.round(Math.random() * 255) +")";
+					p.alpha = 1;
+					p.blur = 30;
+					p.fx = 0;
+					p.fy = 0;
+					p.vx = 0;
+					p.vy = 0;
+					pa.push(p);
+				}
+			}
+
+			var ptimes = 0;
+			setInterval(function() {
+				clearCanvas(c);
+				drawPoints(pa, c);
+				getNextState(pa);
+				applyChanges(pa);
+			}, 16.7);
+		}
+
+		function applyChanges(pa) {
+			for(var i in pa) {
+				if(pa[i].tx) {
+					pa[i].x = pa[i].tx;
+					pa[i].y = pa[i].ty;
+				}
+			}
+		}
+
+		function getNextState(pa) {
+			for(var i = pa.length; i--;) {
+				pa[i].fx = 0;
+				pa[i].tx = 0;
+				pa[i].ty = 0;
+				pa[i].fy = 0;
+				for(var j = pa.length; j--;) {
+					if(i == j) continue;
+					var d = Math.sqrt(Math.pow((pa[j].x - pa[i].x), 2)+Math.pow((pa[j].y-pa[i].y),2));
+					var f = Math.log10(d);
+					if(pa[j].x-pa[i].x == 0) {
+						pa[i].fx += 0;
+					} else {
+						pa[i].fx += ((pa[j].x - pa[i].x)/Math.abs((pa[j].x-pa[i].x)))*Math.abs((pa[j].x-pa[i].x))/d*f;
+					}
+					if((pa[j].y-pa[i].y) == 0) {
+						pa[i].fy += 0
+					} else {
+						pa[i].fy += ((pa[j].y - pa[i].y)/Math.abs((pa[j].y-pa[i].y)))*Math.abs((pa[j].y-pa[i].y))/d*f;
+					}
+				}
+				var dvx = pa[i].fx * 0.0167;
+				var dvy = pa[i].fy * 0.0167;
+				pa[i].tx = pa[i].x + pa[i].vx * 0.0167 + dvx * 0.0167 / 2;
+				pa[i].ty = pa[i].y + pa[i].vy * 0.0167 + dvy * 0.0167 / 2;
+				pa[i].vx = pa[i].vx + dvx;
+				pa[i].vy = pa[i].vy + dvy;
+			} 
+		}
+	</script>
+</body>
+</html>
