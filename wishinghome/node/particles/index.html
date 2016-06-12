@@ -77,14 +77,49 @@
 			}
 
 			var ptimes = 0;
-			setInterval(function() {
+			gi = setInterval(function() {
 				clearCanvas(c);
+				c.strokeStyle = "white";
+				c.beginPath();
+				c.moveTo(100,100);
+				c.lineTo(1400,100);
+				c.lineTo(1400,900);
+				c.lineTo(100,900);
+				c.closePath();
+				c.stroke();
 				drawPoints(pa, c);
 				getNextState(pa);
 				applyChanges(pa);
+				boundaryScan(pa);
 			}, 16.7);
 		}
-
+		var bound = {
+			lx : 100,
+			rx : 1400,
+			ty : 100,
+			by : 900
+		}
+		function boundaryScan(pa) {
+			for(var i in pa) {
+				var p = pa[i];
+				if(p.x < bound.lx) {
+					p.vx = -p.vx;
+					p.x = bound.lx;
+				}
+				if(p.x > bound.rx) {
+					p.vx = -p.vx;
+					p.x = bound.rx;
+				}
+				if(p.y < bound.ty) {
+					p.vy = -p.vy;
+					p.y = bound.ty;
+				}
+				if(p.y > bound.by) {
+					p.vy = -p.vy;
+					p.y = bound.by;
+				}
+			}
+		}
 		function applyChanges(pa) {
 			for(var i in pa) {
 				if(pa[i].tx) {
@@ -94,6 +129,7 @@
 			}
 		}
 
+		var temp = {};
 		function getNextState(pa) {
 			for(var i = pa.length; i--;) {
 				pa[i].fx = 0;
@@ -102,25 +138,36 @@
 				pa[i].fy = 0;
 				for(var j = pa.length; j--;) {
 					if(i == j) continue;
-					var d = Math.sqrt(Math.pow((pa[j].x - pa[i].x), 2)+Math.pow((pa[j].y-pa[i].y),2));
-					var f = Math.log10(d);
-					if(pa[j].x-pa[i].x == 0) {
-						pa[i].fx += 0;
+					temp.dx = pa[j].x - pa[i].x;
+					temp.dy = pa[j].y - pa[i].y;
+					temp.d = Math.sqrt(Math.pow(temp.dx, 2) + Math.pow(temp.dy,2));
+					if(!temp.d) continue;
+					temp.f = Math.log10(temp.d);
+					// var f =	10 / (d - 10);
+					// var f = Math.pow(d, 0.03375);
+					// gravition calculation
+					!temp.dx ? pa[i].fx += 0 : pa[i].fx += temp.dx / temp.d * temp.f;
+					!temp.dy ? pa[i].fy += 0 : pa[i].fy += temp.dy / temp.d * temp.f;
+					// centripetal calculation
+					temp.dvx = pa[j].vx - pa[i].vx;
+					temp.dvy = pa[j].vy - pa[i].vy;
+					temp.cv = 0;
+					temp.cv += temp.dvy * temp.dx / temp.d;
+					temp.cv += temp.dvx * temp.dy / temp.d;
+					temp.cf = temp.cv * temp.cv / temp.d;
+					if(!isFinite(temp.cf)) {
+						temp.cf = 0;
 					} else {
-						pa[i].fx += ((pa[j].x - pa[i].x)/Math.abs((pa[j].x-pa[i].x)))*Math.abs((pa[j].x-pa[i].x))/d*f;
-					}
-					if((pa[j].y-pa[i].y) == 0) {
-						pa[i].fy += 0
-					} else {
-						pa[i].fy += ((pa[j].y - pa[i].y)/Math.abs((pa[j].y-pa[i].y)))*Math.abs((pa[j].y-pa[i].y))/d*f;
+						pa[i].fx += temp.cf * temp.dy / temp.d;
+						pa[i].fy += temp.cf * temp.dx / temp.d;
 					}
 				}
-				var dvx = pa[i].fx * 0.0167;
-				var dvy = pa[i].fy * 0.0167;
-				pa[i].tx = pa[i].x + pa[i].vx * 0.0167 + dvx * 0.0167 / 2;
-				pa[i].ty = pa[i].y + pa[i].vy * 0.0167 + dvy * 0.0167 / 2;
-				pa[i].vx = pa[i].vx + dvx;
-				pa[i].vy = pa[i].vy + dvy;
+				temp.dvx = pa[i].fx * 0.0167;
+				temp.dvy = pa[i].fy * 0.0167;
+				pa[i].tx = pa[i].x + pa[i].vx * 0.0167 + temp.dvx * 0.0167 / 2;
+				pa[i].ty = pa[i].y + pa[i].vy * 0.0167 + temp.dvy * 0.0167 / 2;
+				pa[i].vx = pa[i].vx + temp.dvx;
+				pa[i].vy = pa[i].vy + temp.dvy;
 			} 
 		}
 	</script>
